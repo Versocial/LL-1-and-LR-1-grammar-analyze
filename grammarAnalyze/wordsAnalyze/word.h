@@ -9,7 +9,10 @@ enum wordType {
 	end,
 	string,
 	charac,
-	unkown
+	identifier,
+	key,
+	unkown,
+	empty
 };
 
 struct Word {

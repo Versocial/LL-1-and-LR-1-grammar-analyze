@@ -2,56 +2,60 @@
 //using namespace::std;
 
 
-void wordAnalyzer::wordsAnalyze()
+void wordAnalyzer::wordsAnalyze(std::queue<word>& result)
 {
 
     input->read(inputStr, LENGTH / 2 - 1);
     inputStr[LENGTH / 2 - 1] = inputStr[LENGTH - 1] = EOF;
     nowChar = forChar = inputStr;
     bufferFlag = false;
-    std::string info="";
+    word w;
 
     while (*nowChar) {
-        info .clear();
+        //w .clear();
+        w = wordOf("", wordType::empty);
         if (isdigit(*nowChar)) {
-            info = numberCheck();
+            w = numberCheck();
         }
         else if (isalpha(*nowChar) || *nowChar == '_') {
-            info = identifierCheck();
+            w = identifierCheck();
         }
         else if (*nowChar == '/') {
             if (Error::EndOfFile == incForChar()) { errorInfoAppend(Error::UnfinishedToken, "/"); break; }
             else if (*forChar == '*' || *forChar == '/') { nowChar = forChar; ignoreAnnotation(); }
-            else { forChar = nowChar; info = symbolCheck(); }
+            else { forChar = nowChar; w = symbolCheck(); }
         }
         else if (isspace(*nowChar)) {
             if (*nowChar == '\n') {
-                info += '\n'; lineNumber++;
+                //w += '\n';
+                lineNumber++;
                 lineStartNumber = nowCharNum();
             }
         }
         else if (*nowChar == '\"') {
-            info = stringCheck();
+            w = stringCheck();
         }
         else if (*nowChar == '\'') {
-            info = charCheck();
+            w = charCheck();
         }
         else if (symbolCheckTree.count(*nowChar)) {
-            info = symbolCheck();
+            w = symbolCheck();
         }
         else if (*forChar == '#') {
-            info = "\n"+pretreatCheck();
+           // w = "\n"+pretreatCheck();
+            w = pretreatCheck();
         }
         else {
+            std::string info = "";
             while (!isspace(*forChar)&&';'!=(*forChar)) {
                 info += *forChar;
                 if (Error::EndOfFile == incForChar())break;
             };
             errorInfoAppend(Error::UnkownInput, "\"" + info + "\"");
-            info = "<?word,\"" + info + "\>";           
+            w = wordOf(info,wordType::unkown);           
 
         };
-        if (!info.empty()) *output << info << "\t";
+        if (w.type != wordType::empty) result.push(w);
         if (Error::EndOfFile == incForChar()) {
             break;
         }
@@ -103,23 +107,23 @@ void wordAnalyzer::initSymbolCheckTree() {
     }
 }
 
-std::string wordAnalyzer::symbolCheck()
+word wordAnalyzer::symbolCheck()
 {
     forChar = nowChar;
     node* now = symbolCheckTree[*nowChar];
     std::string symbol = ""; symbol += *nowChar;
     while (now->hasSon()) {
         char* temp = forChar;
-        if (Error::EndOfFile == incForChar())return "<?symbol,"+symbol+">";
+        if (Error::EndOfFile == incForChar())return wordOf(symbol, wordType::unkown);
         now = now->seekSon(*forChar);
         if (now == NULL) { forChar = temp; break; }
         symbol += *forChar;
     }
     noticedSymbol++;
-    return  "<" + symbol + ",->";//"<"+symbol+","+symbolMap[symbol]+">";
+    return  wordOf(symbol,wordType::string);//"<"+symbol+","+symbolMap[symbol]+">";
 }
 
-std::string wordAnalyzer::numberCheck()
+word wordAnalyzer::numberCheck()
 {
     forChar = nowChar;
     int state = 0;
@@ -185,13 +189,13 @@ std::string wordAnalyzer::numberCheck()
         }
         else forChar = temp;
     }
-
+    word w;
     switch (state) {
-    case 0:case 12:case 4:number = "<integer," + number+">"; noticedNumber++; break;
-    case 1:case 2:case 3:number = "<realNumber," + number+">"; noticedNumber++; break;
-    default:number = "<?number," + number+">"; break;
+    case 0:case 12:case 4:w =wordOf (number, wordType::integer); number = "<integer," + number + ">"; noticedNumber++; break;
+    case 1:case 2:case 3:w = wordOf(number, wordType::realNum); number = "<realNumber," + number+">"; noticedNumber++; break;
+    default:w = wordOf(number, wordType::unkown); number = "<?number," + number+">"; break;
     }
-    return number;
+    return w;
 }
 
 
@@ -204,7 +208,7 @@ std::set<std::string> wordAnalyzer::keyWord = {
     "sizeof"
 };
 
-std::string wordAnalyzer::identifierCheck()
+word wordAnalyzer::identifierCheck()
 {
     forChar = nowChar;
     int state = 0;
@@ -221,16 +225,16 @@ std::string wordAnalyzer::identifierCheck()
     
     if (keyWord.count(identifier)) {
         noticedKeyWord++;
-        return "<"+ identifier+",->";
+        return wordOf(identifier, wordType::key);
     }
     else {
         noticedIdentifier++;
-        return "<identifier," + identifier+">";
+        return wordOf(identifier, wordType::identifier);
     }
 }
 
 
-std::string wordAnalyzer::stringCheck()
+word wordAnalyzer::stringCheck()
 {
     forChar = nowChar;
     int state = 0;
@@ -273,12 +277,13 @@ std::string wordAnalyzer::stringCheck()
         }               
         if (!Exit && Error::EndOfFile == incForChar()) { errorInfoAppend(Error::UnfinishedString,ans); break; }
     }
-    if (state == 1) { noticedString++; return "<string,"+ ans+">"; }
-    else return "<?string,"+ans+">";
+    if (state == 1) {
+        noticedString++; return wordOf(ans, wordType::string); }
+    else return wordOf(ans,wordType::unkown);
 }
 
 
-std::string wordAnalyzer::charCheck() {
+word wordAnalyzer::charCheck() {
     forChar = nowChar;
     int state = 0;
     std::string ch = "";
@@ -343,9 +348,9 @@ std::string wordAnalyzer::charCheck() {
         }
     }
     if (state == 4 || state == 3) {
-        noticedChar++;    return "<char," + ch + ">";
+        noticedChar++;    return wordOf(ch,wordType::charac);
     }
-    else return "<?char,"+ ch +">";
+    else return wordOf(ch,wordType::unkown);
 }
 
 void wordAnalyzer::ignoreAnnotation()
@@ -385,7 +390,7 @@ void wordAnalyzer::ignoreAnnotation()
     return;
 }
 
-std::string wordAnalyzer::pretreatCheck()
+word wordAnalyzer::pretreatCheck()
 {
     char* temp=forChar;
     while ('\n' != (*forChar)) {
@@ -394,5 +399,5 @@ std::string wordAnalyzer::pretreatCheck()
     };
     std::string info=std::string(nowChar,forChar-nowChar);
     nowChar = forChar=temp;
-    return "<#pretreat,"+info+">";
+    return wordOf(info,empty);
 }

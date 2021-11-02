@@ -139,22 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="treePrinter\BasicNode.cpp" />
     <ClCompile Include="treePrinter\main2.cpp" />
-    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_baseTools.cpp" />
-    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_wordsAnalyze.cpp" />
-    <ClCompile Include="wordsAnalyze\analyzer\main.cpp" />
-    <ClCompile Include="wordsAnalyze\analyzer\test.c" />
-    <ClCompile Include="wordsAnalyze\wordAnalyze.cpp" />
+    <ClCompile Include="wordsAnalyze\main3.cpp" />
+    <ClCompile Include="wordsAnalyze\test.c" />
+    <ClCompile Include="wordsAnalyze\wordAnalyzer_baseTools.cpp" />
+    <ClCompile Include="wordsAnalyze\wordAnalyzer_wordsAnalyze.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h" />
     <ClInclude Include="treePrinter\BTNode.h" />
-    <ClInclude Include="wordsAnalyze\analyzer\word.h" />
-    <ClInclude Include="wordsAnalyze\analyzer\wordAnalyzer.h" />
-    <ClInclude Include="wordsAnalyze\analyzer\error.h" />
-    <ClInclude Include="wordsAnalyze\analyzer\node.h" />
-    <ClInclude Include="wordsAnalyze\wordAnalyze.h" />
+    <ClInclude Include="wordsAnalyze\error.h" />
+    <ClInclude Include="wordsAnalyze\node.h" />
+    <ClInclude Include="wordsAnalyze\word.h" />
+    <ClInclude Include="wordsAnalyze\wordAnalyzer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt" />

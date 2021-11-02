@@ -2,12 +2,12 @@
 //using namespace::std;
 
 word wordOf(std::string value,wordType type){
-word w;
-w.type = type;
-w.value = value;
-return w;
+    word w;
+    w.type = type;
+    w.value = value;
+    return w;
 }
-wordAnalyzer::wordAnalyzer(std::string path, std::ostream& out) {
+wordAnalyzer::wordAnalyzer(std::istream*input, std::ostream& out) {
     error = Error();
     noticedChar = 0;
     noticedString = 0;
@@ -19,9 +19,10 @@ wordAnalyzer::wordAnalyzer(std::string path, std::ostream& out) {
     charNumber = 0;
     lineStartNumber = 0;
     initSymbolCheckTree();
-   std:: ifstream* inputs = new std:: ifstream(path);
+   /*std:: ifstream* inputs = new std:: ifstream(path);
     openFile = inputs->is_open();
-    if (openFile)input = inputs;
+    if (openFile)input = inputs;*/
+    this->input = input;
     output = &out;
 }
 

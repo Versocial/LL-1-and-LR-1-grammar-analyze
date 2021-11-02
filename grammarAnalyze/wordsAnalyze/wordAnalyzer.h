@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <string>
+#include<queue>
 #include <set>
 #include "error.h"
 #include "node.h"
@@ -37,22 +38,22 @@ private:
     int noticedKeyWord;
 
     void initSymbolCheckTree();
-    std::string symbolCheck();
-    std::string numberCheck();
-    std::string identifierCheck();
-    std::string stringCheck();
-    std::string charCheck();
-    std::string pretreatCheck();
+    word symbolCheck();
+    word numberCheck();
+    word identifierCheck();
+    word stringCheck();
+    word charCheck();
+    word pretreatCheck();
     void  ignoreAnnotation();
 
     inline long long nowCharNum();
     int incForChar();
 
 public:
-    wordAnalyzer(std::string path, std::ostream& out);
+    wordAnalyzer(std::istream*input, std::ostream& out);
     ~wordAnalyzer();
     bool fileOpened();
-    void wordsAnalyze();
+    void wordsAnalyze(std::queue<word>& result);
     void errorInfoAppend(int type, std::string detail);
     std::string compileInfos();
 
