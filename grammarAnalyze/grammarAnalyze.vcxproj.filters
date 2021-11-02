@@ -31,13 +31,31 @@
     <Filter Include="边缘文件\treePrinter\head">
       <UniqueIdentifier>{58042eff-1a92-48ef-97d5-7477e458123c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="边缘文件\wordAnalyze\analyzer">
+      <UniqueIdentifier>{ef8c7a38-89f9-4d5e-974a-16fae35d1d4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="treePrinter\BasicNode.cpp">
       <Filter>边缘文件\treePrinter</Filter>
     </ClCompile>
-    <ClCompile Include="treePrinter\main.cpp">
+    <ClCompile Include="treePrinter\main2.cpp">
       <Filter>边缘文件\treePrinter</Filter>
+    </ClCompile>
+    <ClCompile Include="wordsAnalyze\wordAnalyze.cpp">
+      <Filter>边缘文件\wordAnalyze</Filter>
+    </ClCompile>
+    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_baseTools.cpp">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_wordsAnalyze.cpp">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="wordsAnalyze\analyzer\main.cpp">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="wordsAnalyze\analyzer\test.c">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +64,18 @@
     </ClInclude>
     <ClInclude Include="treePrinter\BTNode.h">
       <Filter>边缘文件\treePrinter\head</Filter>
+    </ClInclude>
+    <ClInclude Include="wordsAnalyze\wordAnalyze.h">
+      <Filter>边缘文件\wordAnalyze</Filter>
+    </ClInclude>
+    <ClInclude Include="wordsAnalyze\analyzer\wordAnalyzer.h">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="wordsAnalyze\analyzer\error.h">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="wordsAnalyze\analyzer\node.h">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

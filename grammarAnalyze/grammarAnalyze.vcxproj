@@ -140,11 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="treePrinter\BasicNode.cpp" />
-    <ClCompile Include="treePrinter\main.cpp" />
+    <ClCompile Include="treePrinter\main2.cpp" />
+    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_baseTools.cpp" />
+    <ClCompile Include="wordsAnalyze\analyzer\wordAnalyzer_wordsAnalyze.cpp" />
+    <ClCompile Include="wordsAnalyze\analyzer\main.cpp" />
+    <ClCompile Include="wordsAnalyze\analyzer\test.c" />
+    <ClCompile Include="wordsAnalyze\wordAnalyze.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h" />
     <ClInclude Include="treePrinter\BTNode.h" />
+    <ClInclude Include="wordsAnalyze\analyzer\wordAnalyzer.h" />
+    <ClInclude Include="wordsAnalyze\analyzer\error.h" />
+    <ClInclude Include="wordsAnalyze\analyzer\node.h" />
+    <ClInclude Include="wordsAnalyze\wordAnalyze.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt" />
