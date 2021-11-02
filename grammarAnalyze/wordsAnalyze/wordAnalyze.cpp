@@ -1,12 +1,6 @@
 
 #include "wordAnalyze.h"
 
-word wordOf(std::string value, wordType type) {
-	word w;
-	w.type = type;
-	w.value = value;
-	return w;
-}
 //
 //word getWord(std::istream& input)
 //{

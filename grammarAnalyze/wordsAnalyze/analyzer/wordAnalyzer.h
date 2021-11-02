@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <unordered_map>
 #include <fstream>
@@ -6,6 +7,7 @@
 #include <set>
 #include "error.h"
 #include "node.h"
+#include "word.h"
 
 class wordAnalyzer
 {

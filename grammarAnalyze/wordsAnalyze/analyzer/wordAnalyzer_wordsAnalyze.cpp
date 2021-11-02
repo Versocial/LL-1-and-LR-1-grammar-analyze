@@ -1,5 +1,5 @@
 #include "wordAnalyzer.h"
-using namespace::std;
+//using namespace::std;
 
 
 void wordAnalyzer::wordsAnalyze()
@@ -9,7 +9,7 @@ void wordAnalyzer::wordsAnalyze()
     inputStr[LENGTH / 2 - 1] = inputStr[LENGTH - 1] = EOF;
     nowChar = forChar = inputStr;
     bufferFlag = false;
-    string info="";
+    std::string info="";
 
     while (*nowChar) {
         info .clear();
@@ -62,7 +62,7 @@ void wordAnalyzer::wordsAnalyze()
 }
 
 
-unordered_map<string, string> wordAnalyzer::symbolMap = {
+std::unordered_map<std::string, std::string> wordAnalyzer::symbolMap = {
             {"+","plus"},{"++","inc"}, {"+=","plusAssign"},
             {"-","sub"},{"--","dec"},{"-=","decAssign"}, {"->","target"},
             {"*","star"},{"*=","multiplyAssign" },
@@ -81,7 +81,7 @@ unordered_map<string, string> wordAnalyzer::symbolMap = {
 };//这里原义键值对的值是读取到键后记录的记号
 
 void wordAnalyzer::initSymbolCheckTree() {
-    for (unordered_map<string, string>::iterator it = symbolMap.begin(); it != symbolMap.end(); it++) {
+    for (std::unordered_map<std::string, std::string>::iterator it = symbolMap.begin(); it != symbolMap.end(); it++) {
         node* now = NULL;
         for (char ch : it->first) {
             if (now == NULL) {
@@ -103,11 +103,11 @@ void wordAnalyzer::initSymbolCheckTree() {
     }
 }
 
-string wordAnalyzer::symbolCheck()
+std::string wordAnalyzer::symbolCheck()
 {
     forChar = nowChar;
     node* now = symbolCheckTree[*nowChar];
-    string symbol = ""; symbol += *nowChar;
+    std::string symbol = ""; symbol += *nowChar;
     while (now->hasSon()) {
         char* temp = forChar;
         if (Error::EndOfFile == incForChar())return "<?symbol,"+symbol+">";
@@ -119,11 +119,11 @@ string wordAnalyzer::symbolCheck()
     return  "<" + symbol + ",->";//"<"+symbol+","+symbolMap[symbol]+">";
 }
 
-string wordAnalyzer::numberCheck()
+std::string wordAnalyzer::numberCheck()
 {
     forChar = nowChar;
     int state = 0;
-    string number = "";
+    std::string number = "";
     char* temp = forChar;
     bool Exit = false;
     
@@ -196,7 +196,7 @@ string wordAnalyzer::numberCheck()
 
 
 
-set<string> wordAnalyzer::keyWord = {
+std::set<std::string> wordAnalyzer::keyWord = {
     "int", "long", "short", "float", "double", "char",
     "unsigned", "signed", "const", "void", "volatile", "enum", "struct", "union",
     "if", "else", "goto", "switch", "case", "do", "while", "for", "continue", "break", "return", "default", "typedef",
@@ -204,11 +204,11 @@ set<string> wordAnalyzer::keyWord = {
     "sizeof"
 };
 
-string wordAnalyzer::identifierCheck()
+std::string wordAnalyzer::identifierCheck()
 {
     forChar = nowChar;
     int state = 0;
-    string identifier = "";
+    std::string identifier = "";
     char* temp = forChar;
     while (1) {
         if (isalpha(*forChar) || *forChar == '_' || (isdigit(*forChar) && identifier.size())) {
@@ -230,12 +230,12 @@ string wordAnalyzer::identifierCheck()
 }
 
 
-string wordAnalyzer::stringCheck()
+std::string wordAnalyzer::stringCheck()
 {
     forChar = nowChar;
     int state = 0;
     bool Exit = false;
-    string ans = "";
+    std::string ans = "";
     while (!Exit) {
         switch (state)
         {
@@ -278,10 +278,10 @@ string wordAnalyzer::stringCheck()
 }
 
 
-string wordAnalyzer::charCheck() {
+std::string wordAnalyzer::charCheck() {
     forChar = nowChar;
     int state = 0;
-    string ch = "";
+    std::string ch = "";
     char* temp = forChar;
     bool Exit = false;
     while (!Exit) {
@@ -385,14 +385,14 @@ void wordAnalyzer::ignoreAnnotation()
     return;
 }
 
-string wordAnalyzer::pretreatCheck()
+std::string wordAnalyzer::pretreatCheck()
 {
     char* temp=forChar;
     while ('\n' != (*forChar)) {
         temp = forChar;
         if (Error::EndOfFile == incForChar())break;
     };
-    string info=string(nowChar,forChar-nowChar);
+    std::string info=std::string(nowChar,forChar-nowChar);
     nowChar = forChar=temp;
     return "<#pretreat,"+info+">";
 }

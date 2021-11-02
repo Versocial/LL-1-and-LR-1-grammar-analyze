@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h" />
     <ClInclude Include="treePrinter\BTNode.h" />
+    <ClInclude Include="wordsAnalyze\analyzer\word.h" />
     <ClInclude Include="wordsAnalyze\analyzer\wordAnalyzer.h" />
     <ClInclude Include="wordsAnalyze\analyzer\error.h" />
     <ClInclude Include="wordsAnalyze\analyzer\node.h" />

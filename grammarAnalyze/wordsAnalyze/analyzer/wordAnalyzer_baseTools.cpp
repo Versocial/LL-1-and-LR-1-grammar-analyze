@@ -1,7 +1,13 @@
 #include "wordAnalyzer.h"
-using namespace::std;
+//using namespace::std;
 
-wordAnalyzer::wordAnalyzer(string path, ostream& out) {
+word wordOf(std::string value,wordType type){
+word w;
+w.type = type;
+w.value = value;
+return w;
+}
+wordAnalyzer::wordAnalyzer(std::string path, std::ostream& out) {
     error = Error();
     noticedChar = 0;
     noticedString = 0;
@@ -13,7 +19,7 @@ wordAnalyzer::wordAnalyzer(string path, ostream& out) {
     charNumber = 0;
     lineStartNumber = 0;
     initSymbolCheckTree();
-    ifstream* inputs = new  ifstream(path);
+   std:: ifstream* inputs = new std:: ifstream(path);
     openFile = inputs->is_open();
     if (openFile)input = inputs;
     output = &out;
@@ -21,10 +27,10 @@ wordAnalyzer::wordAnalyzer(string path, ostream& out) {
 
 wordAnalyzer::~wordAnalyzer()
 {
-    for (unordered_map<char, node*>::iterator it = symbolCheckTree.begin(); it != symbolCheckTree.end(); it++) {
+    for (std::unordered_map<char, node*>::iterator it = symbolCheckTree.begin(); it != symbolCheckTree.end(); it++) {
         delete it->second;
     };
-    if(openFile)((ifstream*)input)->close();
+    if(openFile)((std::ifstream*)input)->close();
 }
 
 bool wordAnalyzer::fileOpened()
@@ -32,12 +38,12 @@ bool wordAnalyzer::fileOpened()
     return openFile;
 }
 
-string wordAnalyzer::compileInfos()
+std::string wordAnalyzer::compileInfos()
 {
     return
         "\n\n\t\t\t\t<<<<<======== [ Information ] ========>>>>>\t\t\t\t\n\t\t\t\t     " +
-        to_string(lineNumber) + " lines | " + to_string(charNumber) + " characters | " + to_string(error.errorNum()) + " errors.\n\t\t" +
-        "Noticed : "+to_string(noticedIdentifier)+" identifiers | " +to_string(noticedKeyWord)+" keyWords | "+ to_string(noticedSymbol)+" symbols | " + to_string(noticedChar)+" chars | " + to_string(noticedString) +" strings | " + to_string(noticedNumber)+" numbers \n" +
+       std:: to_string(lineNumber) + " lines | " + std::to_string(charNumber) + " characters | " + std::to_string(error.errorNum()) + " errors.\n\t\t" +
+        "Noticed : "+ std::to_string(noticedIdentifier)+" identifiers | " + std::to_string(noticedKeyWord)+" keyWords | "+ std::to_string(noticedSymbol)+" symbols | " + std::to_string(noticedChar)+" chars | " + std::to_string(noticedString) +" strings | " + std::to_string(noticedNumber)+" numbers \n" +
         error.getInfo();
 }
 
@@ -77,7 +83,7 @@ inline long long  wordAnalyzer::nowCharNum() {
     return charNumber + (forChar - inputStr >= LENGTH / 2) ? forChar - inputStr  : forChar - inputStr +1;
 }
 
-void wordAnalyzer::errorInfoAppend(int type, string detail)
+void wordAnalyzer::errorInfoAppend(int type, std::string detail)
 {
     error.addInfo(lineNumber, nowCharNum()-lineStartNumber, type, detail);
 }

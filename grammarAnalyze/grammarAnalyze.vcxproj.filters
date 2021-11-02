@@ -77,6 +77,9 @@
     <ClInclude Include="wordsAnalyze\analyzer\node.h">
       <Filter>边缘文件\wordAnalyze\analyzer</Filter>
     </ClInclude>
+    <ClInclude Include="wordsAnalyze\analyzer\word.h">
+      <Filter>边缘文件\wordAnalyze\analyzer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt">

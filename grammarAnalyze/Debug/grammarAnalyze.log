@@ -1,6 +1,8 @@
-﻿  wordAnalyzer_baseTools.cpp
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\wordsAnalyze\analyzer\wordAnalyzer_baseTools.cpp(82,43): warning C4244: “参数”: 从“__int64”转换到“int”，可能丢失数据
+﻿  main.cpp
+  wordAnalyzer_baseTools.cpp
+A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\wordsAnalyze\analyzer\wordAnalyzer_baseTools.cpp(88,43): warning C4244: “参数”: 从“__int64”转换到“int”，可能丢失数据
   wordAnalyzer_wordsAnalyze.cpp
 A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\wordsAnalyze\analyzer\wordAnalyzer_wordsAnalyze.cpp(51,41): warning C4129: “>”: 不可识别的字符转义序列
+  wordAnalyze.cpp
   正在生成代码...
   grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe
