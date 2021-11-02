@@ -54,6 +54,9 @@
     <ClCompile Include="wordsAnalyze\wordAnalyzer_wordsAnalyze.cpp">
       <Filter>边缘文件\wordAnalyze</Filter>
     </ClCompile>
+    <ClCompile Include="grammar\grammar.cpp">
+      <Filter>核心文件\grammar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="wordsAnalyze\wordAnalyzer.h">
       <Filter>边缘文件\wordAnalyze</Filter>
+    </ClInclude>
+    <ClInclude Include="grammar\grammar.h">
+      <Filter>核心文件\grammar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

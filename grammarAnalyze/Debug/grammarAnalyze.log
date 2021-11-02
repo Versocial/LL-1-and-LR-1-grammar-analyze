@@ -1,9 +1,5 @@
-﻿  main.cpp
-  main3.cpp
-  wordAnalyzer_baseTools.cpp
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\wordsAnalyze\wordAnalyzer_baseTools.cpp(89,43): warning C4244: “参数”: 从“__int64”转换到“int”，可能丢失数据
+﻿  grammar.cpp
+  main.cpp
   wordAnalyzer_wordsAnalyze.cpp
   正在生成代码...
-  test.c
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\wordsAnalyze\test.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe

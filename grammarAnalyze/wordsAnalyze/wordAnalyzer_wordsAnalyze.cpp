@@ -81,7 +81,8 @@ std::unordered_map<std::string, std::string> wordAnalyzer::symbolMap = {
             {"&","bitAnd"},{"&=","bitAndAssign"},{"&&","and"},
             {"|","bitOr"},{"|=","bitOrAssign"},{"||","or"},
             {"(","-"},{")","-"},{"[","-"},{"]","-"},{"{","-"},{"}","-"},
-            {".","point"},{"?","question"},{":","colon"},{";","semicolon"},{",","comma"}
+            {".","point"},{"?","question"},{":","colon"},{";","semicolon"},{",","comma"},
+            {"=>","arrow"},{"$","end"}//use only in chan sheng shi
 };//这里原义键值对的值是读取到键后记录的记号
 
 void wordAnalyzer::initSymbolCheckTree() {
@@ -120,7 +121,7 @@ word wordAnalyzer::symbolCheck()
         symbol += *forChar;
     }
     noticedSymbol++;
-    return  wordOf(symbol,wordType::string);//"<"+symbol+","+symbolMap[symbol]+">";
+    return  wordOf(symbol,wordType::symbol);//"<"+symbol+","+symbolMap[symbol]+">";
 }
 
 word wordAnalyzer::numberCheck()
