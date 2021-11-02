@@ -106,5 +106,5 @@ class BTTree
 	std::shared_ptr<BTNode<T>> _head;
 };
 
-#include "BTNode.tpp"
+#include "BTNode.cpp"
 #endif /* SRC_BTNODE_H_ */

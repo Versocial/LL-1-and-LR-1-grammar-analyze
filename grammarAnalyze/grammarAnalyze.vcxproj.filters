@@ -1,17 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="边缘文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="边缘文件\treePrinter">
+      <UniqueIdentifier>{812b49f7-086d-4928-93d8-1143d03501d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="边缘文件\wordAnalyze">
+      <UniqueIdentifier>{3f2dd944-b924-45e7-9bf4-36df859a9336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="核心文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="核心文件\LL1">
+      <UniqueIdentifier>{c3a20751-07f9-4920-80b8-8c514695ed98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="核心文件\LR1">
+      <UniqueIdentifier>{23254c5d-60b4-45ea-8c67-84921ca04ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="核心文件\grammar">
+      <UniqueIdentifier>{5e184e6f-0228-438d-a69c-a44006c9f073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="边缘文件\treePrinter\head">
+      <UniqueIdentifier>{58042eff-1a92-48ef-97d5-7477e458123c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="treePrinter\BasicNode.cpp">
+      <Filter>边缘文件\treePrinter</Filter>
+    </ClCompile>
+    <ClCompile Include="treePrinter\main.cpp">
+      <Filter>边缘文件\treePrinter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="treePrinter\BasicNode.h">
+      <Filter>边缘文件\treePrinter\head</Filter>
+    </ClInclude>
+    <ClInclude Include="treePrinter\BTNode.h">
+      <Filter>边缘文件\treePrinter\head</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="grammar\grammar.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="treePrinter\BTNode.cpp">
+      <Filter>边缘文件\treePrinter</Filter>
+    </None>
   </ItemGroup>
 </Project>

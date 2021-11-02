@@ -11,32 +11,35 @@
 
 
 int main() {
-	BasicNode * head     = new BasicNode("+");
-	BasicNode * childL   = new BasicNode("*");
-	BasicNode * childR   = new BasicNode("*");
+	BasicNode * head     = new BasicNode("me");
+	BasicNode * childL   = new BasicNode("Paul");
+	BasicNode * childCL  = new BasicNode("Anna");
+	BasicNode * childCC  = new BasicNode("Sarah");
+	BasicNode * childCR  = new BasicNode("Emma");
+	BasicNode * childR   = new BasicNode("Tina");
 
-	BasicNode * childLL  = new BasicNode("a");
-	BasicNode * childLR  = new BasicNode("b");
+	BasicNode * childLL  = new BasicNode("Kevin");
+	BasicNode * childLR  = new BasicNode("Elloine");
 
-	BasicNode * childRL  = new BasicNode("c");
-	BasicNode * childRC  = new BasicNode("^");
-	BasicNode * childRR  = new BasicNode("d");
+	BasicNode * childCLC = new BasicNode("Anthony");
 
-	BasicNode * childRCL = new BasicNode("e");
-	BasicNode * childRCC = new BasicNode("f");
+	BasicNode * childRL  = new BasicNode("Susan");
+	BasicNode * childRR  = new BasicNode("Jason");
 
 	head->addChildren(childL);
+	head->addChildren(childCL);
+	head->addChildren(childCC);
+	head->addChildren(childCR);
 	head->addChildren(childR);
+
+	childCL->addChildren(childCLC);
+
 
 	childL->addChildren(childLL);
 	childL->addChildren(childLR);
 
 	childR->addChildren(childRL);
-	childR->addChildren(childRC);
 	childR->addChildren(childRR);
-
-	childRC->addChildren(childRCL);
-	childRC->addChildren(childRCC);
 
 	BTTree<BasicNode> printer(head, &BasicNode::getChildren, &BasicNode::getData);
 	printer.print();
