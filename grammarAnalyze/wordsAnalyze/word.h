@@ -18,7 +18,15 @@ enum wordType {
 struct Word {
 	std::string value;
 	wordType type;
-	
+	bool operator==(const struct Word& w) const {
+		return type == w.type && value == w.value;
+	}
+	bool operator!=(const struct Word& w) const {
+		return type != w.type || value != w.value;
+	}
+	friend bool operator<(const struct Word w1,const struct Word& w2) { 
+		return std::to_string(w1.type)+ w1.value < std::to_string(w2.type) + w2.value;
+	}
 };
 
 

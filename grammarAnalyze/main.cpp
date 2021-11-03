@@ -9,6 +9,7 @@
 using namespace::std;
 int main()
 {
+
     std::string path = "grammar/grammar.txt";
     ifstream input(path);
     if(!input.is_open()){
