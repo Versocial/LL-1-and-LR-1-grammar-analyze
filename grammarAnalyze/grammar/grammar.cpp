@@ -1,23 +1,36 @@
 #include "grammar.h"
 
-bool grammar::isEnd(word w)
-{
-	return w.type == wordType::symbol&&w.value=="$";
-}
 
 bool grammar::isOr(word w)
 {
 	return w.type == wordType::symbol && w.value == "|";
 }
 
-bool grammar::isEpsilon(word w)
+word grammar::Epsilon()
 {
-	return w.type == wordType::identifier && w.value == "e";
+	return wordOf("e", wordType::identifier);
 }
 
-std::string grammar::leftOf(product p)
+word grammar::End()
 {
-	return p[0].value;
+	return wordOf("$",symbol);
+}
+
+word grammar::leftOf(product* p)
+{
+	return (*p)[0];
+}
+
+
+void grammar::setFIRST()
+{
+	for (word symbol : N) {
+		FIRST[symbol.value] = new std::set<word>();
+		for (int i = firstIndex[symbol.value]; i < g.size(); i++) {
+			if (leftOf(g[i]) != symbol)break;
+			if(!N.count((*g[i])[1]))FIRST[symbol.value]->insert();
+		}
+	}
 }
 
 grammar::grammar(std::queue<word>& products)
@@ -25,12 +38,14 @@ grammar::grammar(std::queue<word>& products)
 	g.clear();
 	while(!products.empty()) {
 		product* p = new std::vector<word>;
-		firstIndex[leftOf(*p)] = g.size();
 		p->clear();
 		p->push_back(products.front());
+		if ((*p)[0].type != wordType::identifier)return;//left must be identifier
+		firstIndex[leftOf(p).value] = g.size();
+		N.insert((*p)[0]);
 		products.pop();
 		products.pop();//=>
-		while (!isEnd(products.front())) {
+		while (End()!=(products.front())) {
 			if (isOr(products.front())) {
 				g.push_back(p);
 				word left = (*p)[0];
