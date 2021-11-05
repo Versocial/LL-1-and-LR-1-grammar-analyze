@@ -15,16 +15,11 @@ word grammar::End()
 {
 	return wordOf("$",symbol);
 }
-//
-//word grammar::leftOf(product* p)
-//{
-//	return (*p)[0];
-//}
 
 
 void grammar::setFIRSTset()
 {
-	for (word symbol : N) {
+	for (word symbol : nonTerminals) {
 		FIRSTset[symbol.value] = new std::set<word>();
 	}
 	bool repeat = true;
@@ -36,7 +31,7 @@ void grammar::setFIRSTset()
 			int k = 1;
 			bool flag = true;
 			while (flag) {
-				if (!N.count(p[k])) {
+				if (!nonTerminals.count(p[k])) {
 					FIRST(p[0]).insert(p[k]);
 					break;
 				}
@@ -59,7 +54,7 @@ void grammar::setFIRSTset()
 
 void grammar::setFOLLOWset()
 {
-	for (word symbol : N) {
+	for (word symbol : nonTerminals) {
 		FOLLOWset[symbol.value] = new std::set<word>();
 	}
 	FOLLOW(g(0)[0]).insert(End());
@@ -70,7 +65,7 @@ void grammar::setFOLLOWset()
 			product p = g(i);
 
 			for (int k = 1; k < p.size(); k++) {
-				if (!N.count(p[k]))continue;
+				if (!nonTerminals.count(p[k]))continue;
 				int beforeSize = FOLLOW(p[k]).size();
 				std::set<word> toMergeIn = {};
 				firstOF(p, k + 1, p.size() - 1, toMergeIn);
@@ -84,6 +79,26 @@ void grammar::setFOLLOWset()
 	}
 }
 
+std::set<word>& grammar::N()
+{
+	return nonTerminals;
+}
+
+int grammar::symbolNum()
+{
+	return allSymbols.size();
+}
+
+int grammar::index(word w)
+{
+	return allIndexes[w.serializeString()];
+}
+
+word grammar::alpha(int index)
+{
+	return allSymbols[index];
+}
+
 
 
 product& grammar::g(int i)
@@ -91,7 +106,7 @@ product& grammar::g(int i)
 	return *allProducts[i];
 }
 
-int grammar::gsize()
+int grammar::gsize()const
 {
 	return allProducts.size();
 }
@@ -111,12 +126,12 @@ void grammar::firstOF(product& p, int begin, int end, std::set<word>& output)
 	int k = begin;
 	bool repeat = true;
 	while (repeat&&k<=end) {
-		if (!N.count(p[k]))
+		if (!nonTerminals.count(p[k]))
 			output.insert(p[k]);
 		else 
 			mergeNonEplisonIntoSet(output, FIRST(p[k]));
 		
-		if (!N.count(p[0]) && FIRST(p[k]).count(Epsilon()))
+		if (!nonTerminals.count(p[0]) && FIRST(p[k]).count(Epsilon()))
 			repeat = true;
 		else 
 			repeat = false;
@@ -138,13 +153,15 @@ std::set<word>& grammar::FOLLOW(word n)
 grammar::grammar(std::queue<word>& products)
 {
 	allProducts.clear();
+	allSymbols.clear();
+	allIndexes.clear();
 	while(!products.empty()) {
 		product* p = new std::vector<word>;
 		p->clear();
 		p->push_back(products.front());
 		if ((*p)[0].type != wordType::identifier)return;//left must be identifier
 		firstIndex[(*p)[0].value] = allProducts.size();
-		N.insert((*p)[0]);
+		nonTerminals.insert((*p)[0]);
 		products.pop();
 		products.pop();//=>
 		while (End()!=(products.front())) {
@@ -164,12 +181,23 @@ grammar::grammar(std::queue<word>& products)
 		products.pop();//$
 	}
 
+	for (int i = 0; i < gsize(); i++) 
+		for (int k = 0; k < g(i).size(); k++) {
+			if(allIndexes.count(g(i)[k].serializeString())||g(i)[k]==Epsilon())
+				continue;
+			allIndexes[g(i)[k].serializeString()] = allSymbols.size();
+			allSymbols.push_back(g(i)[k]);
+		}
+	allIndexes[End().serializeString()] = allSymbols.size();
+	allSymbols.push_back(End());
+	
 	setFIRSTset();
 	setFOLLOWset();
 }
 
 grammar::~grammar()
 {
+	delete &nonTerminals;
 	for (std::vector<product*> ::iterator it = allProducts.begin(); it < allProducts.end(); it++) {
 		delete (*it);
 	}

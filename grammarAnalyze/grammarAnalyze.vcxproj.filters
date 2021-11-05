@@ -57,6 +57,9 @@
     <ClCompile Include="grammar\grammar.cpp">
       <Filter>核心文件\grammar</Filter>
     </ClCompile>
+    <ClCompile Include="LL1\LL1.cpp">
+      <Filter>核心文件\LL1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="grammar\grammar.h">
       <Filter>核心文件\grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="LL1\LL1.h">
+      <Filter>核心文件\LL1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

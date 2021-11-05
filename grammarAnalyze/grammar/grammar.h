@@ -12,21 +12,28 @@ class grammar
 {
 private:
 	std::vector<product*> allProducts;//order in left symbol
-	std::set<word>N;
-	std::vector< std::set<word>*>productFIRSTset;
+	std::set<word>& nonTerminals = *new std::set<word>;
+	std::unordered_map<std::string, int> firstIndex;
+
+	std::vector<word> allSymbols;// without epsilon or dollor
+	std::unordered_map<std::string, int> allIndexes;
 	std::unordered_map<std::string, std::set<word>*>FIRSTset;
 	std::unordered_map<std::string, std::set<word>*>FOLLOWset;
-	//std::
-	std::unordered_map<std::string, int> firstIndex;
 	static bool isOr(word w);
+	//static word leftOf(product* p);
+	void resetTerminals();//nonTerminals- firstIndex
+	void resetSymbolIndex();// allSymbols-allIndexes
+	void resetFIRSTset();//FIRSTset
+	void resetFOLLOWset();//FOLLOWset
+public:
 	static word Epsilon();
 	static word End();//$
-	//static word leftOf(product* p);
-	void setFIRSTset();
-	void setFOLLOWset();
-public:
+	std::set<word>& N();
+	int symbolNum();
+	int index(word w);
+	word alpha(int index);
 	product& g(int i);
-	int gsize();
+	int gsize()const;
 	static void mergeNonEplisonIntoSet(std::set<word>& dest, std::set<word>& from);
 	void firstOF(product& p, int begin,int end,std::set<word>& output);
 	std::set<word>& FIRST(word n);
