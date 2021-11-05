@@ -32,7 +32,7 @@ void grammar::setFIRSTset()
 		repeat = false;
 		for (int i = 0; i < gsize(); i++) {
 			product p = g(i);
-			int beForeSize = FIRST(p[0]).size();
+			int beforeSize = FIRST(p[0]).size();
 			int k = 1;
 			bool flag = true;
 			while (flag) {
@@ -41,10 +41,7 @@ void grammar::setFIRSTset()
 					break;
 				}
 				else {
-					bool hasEpsilon = FIRST(p[0]).count(Epsilon());
-					FIRST(p[0]).insert(FIRST(p[k]).begin(),FIRST(p[k]).end());
-					if (!hasEpsilon && FIRST(p[0]).count(Epsilon()))
-						FIRST(p[0]).erase(Epsilon());
+					mergeNonEplisonIntoSet(FIRST(p[0]), FIRST(p[k]));
 				}
 				flag = false;
 				if (FIRST(p[k]).count(Epsilon()) && p.size() == k + 1) {
@@ -54,11 +51,40 @@ void grammar::setFIRSTset()
 					flag = true; k++;
 				}
 			}
-			if (beForeSize != FIRST(p[0]).size())
+			if (beforeSize != FIRST(p[0]).size())
 				repeat = true;
 		}
 	}
 }
+
+void grammar::setFOLLOWset()
+{
+	for (word symbol : N) {
+		FOLLOWset[symbol.value] = new std::set<word>();
+	}
+	FOLLOW(g(0)[0]).insert(End());
+	bool repeat = true;
+	while (repeat) {
+		repeat = false;
+		for (int i = 0; i < gsize(); i++) {
+			product p = g(i);
+
+			for (int k = 1; k < p.size(); k++) {
+				if (!N.count(p[k]))continue;
+				int beforeSize = FOLLOW(p[k]).size();
+				std::set<word> toMergeIn = {};
+				firstOF(p, k + 1, p.size() - 1, toMergeIn);
+				if (k == p.size() - 1 || toMergeIn.count(Epsilon()))
+					mergeNonEplisonIntoSet(FOLLOW(p[k]), FOLLOW(p[0]));
+				mergeNonEplisonIntoSet(FOLLOW(p[k]), toMergeIn);
+				if (FOLLOW(p[k]).size() != beforeSize)
+					repeat = true;
+			}			
+		}
+	}
+}
+
+
 
 product& grammar::g(int i)
 {
@@ -70,9 +96,43 @@ int grammar::gsize()
 	return allProducts.size();
 }
 
+void grammar::mergeNonEplisonIntoSet(std::set<word>& dest, std::set<word>& from)
+{
+	bool hasEpsilon = from.count(Epsilon())&&!dest.count(Epsilon());
+	dest.insert(from.begin(), from.end());
+	if (hasEpsilon )
+		dest.erase(Epsilon());
+}
+
+void grammar::firstOF(product& p, int begin, int end, std::set<word>& output)
+{
+	output.clear();
+	if (begin >=p.size()||end<0||begin>end)return;
+	int k = begin;
+	bool repeat = true;
+	while (repeat&&k<=end) {
+		if (!N.count(p[k]))
+			output.insert(p[k]);
+		else 
+			mergeNonEplisonIntoSet(output, FIRST(p[k]));
+		
+		if (!N.count(p[0]) && FIRST(p[k]).count(Epsilon()))
+			repeat = true;
+		else 
+			repeat = false;
+		k++;
+	}
+}
+
+
 std::set<word>& grammar::FIRST(word n)
 {
 	return *(FIRSTset[n.value]);
+}
+
+std::set<word>& grammar::FOLLOW(word n)
+{
+	return *(FOLLOWset[n.value]);
 }
 
 grammar::grammar(std::queue<word>& products)
@@ -105,6 +165,7 @@ grammar::grammar(std::queue<word>& products)
 	}
 
 	setFIRSTset();
+	setFOLLOWset();
 }
 
 grammar::~grammar()
