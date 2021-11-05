@@ -12,10 +12,10 @@ class grammar
 {
 private:
 	std::vector<product*> allProducts;//order in left symbol
+
 	std::set<word>& nonTerminals = *new std::set<word>;
 	std::unordered_map<std::string, int> firstIndex;
-
-	std::vector<word> allSymbols;// without epsilon or dollor
+	std::vector<word> allSymbols;// without epsilon or dollor, nonTerminal first
 	std::unordered_map<std::string, int> allIndexes;
 	std::unordered_map<std::string, std::set<word>*>FIRSTset;
 	std::unordered_map<std::string, std::set<word>*>FOLLOWset;
@@ -26,6 +26,7 @@ private:
 	void resetFIRSTset();//FIRSTset
 	void resetFOLLOWset();//FOLLOWset
 public:
+	static void mergeEliminatedInto(std::vector<product*>& dest, std::set<product*>&LR,std::set<product*>&notLR,word left);
 	static word Epsilon();
 	static word End();//$
 	std::set<word>& N();
@@ -39,5 +40,6 @@ public:
 	std::set<word>& FIRST(word n);
 	std::set<word>& FOLLOW(word n);
 	grammar(std::queue<word>& products);
+	void eliminateLeftR();
 	~grammar();
 };

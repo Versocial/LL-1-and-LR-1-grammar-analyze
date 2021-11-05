@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include<queue>
+#include <iostream>
 #include "../grammar/grammar.h"
 
 class LL1Analyzer {

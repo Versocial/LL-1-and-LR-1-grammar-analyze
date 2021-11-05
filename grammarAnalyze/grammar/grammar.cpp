@@ -6,6 +6,37 @@ bool grammar::isOr(word w)
 	return w.type == wordType::symbol && w.value == "|";
 }
 
+void grammar::mergeEliminatedInto(std::vector<product*>& dest, std::set<product*>& LR, std::set<product*>& notLR, word left)
+{
+	if (LR.empty()) { 
+		for (product* p : notLR) 
+			dest.push_back(new product(*p));
+		return;
+	}
+	word newLeft = wordOf(left.value + "^", left.type);
+	for (product* p : notLR) {		
+		product* newP = new std::vector<word>(*p);
+		if (p->size() == 2 && (*p)[1] == Epsilon()) {
+			(*newP)[1] = newLeft;
+		}
+		newP->push_back(newLeft);
+		dest.push_back(newP);
+	}
+	for (product* p : LR) {
+		product* newP = new std::vector<word>(*p);
+		(*newP)[0] = newLeft;
+		for (int i = 1; i < newP->size()-1; i++) {
+			(*newP)[i] = (*newP)[i + 1];
+		}
+		(*newP)[newP->size() - 1] = newLeft;
+		dest.push_back(newP);
+	}
+	product* newP = new std::vector<word>();
+	newP->push_back(newLeft);
+	newP->push_back(Epsilon());
+	dest.push_back(newP);
+}
+
 word grammar::Epsilon()
 {
 	return wordOf("e", wordType::identifier);
@@ -13,14 +44,52 @@ word grammar::Epsilon()
 
 word grammar::End()
 {
-	return wordOf("$",symbol);
+	return wordOf("$", symbol);
 }
 
 
-void grammar::setFIRSTset()
+void grammar::resetTerminals()
 {
+	nonTerminals.clear();
+	firstIndex.clear();
+	for (int i = 0; i < gsize(); i++) {
+		product p = g(i);
+		if (firstIndex.count(p[0].serializeString()))
+			continue;
+		else {
+			nonTerminals.insert(p[0]);
+			firstIndex[p[0].serializeString()] = i;
+		}
+	}
+}
+
+void grammar::resetSymbolIndex()
+{
+	allIndexes.clear();
+	allSymbols.clear();
+	for (int i = 0; i < gsize(); i++) {// nonTerminal first
+		if (allIndexes.count(g(i)[0].serializeString()))
+			continue;
+		allIndexes[g(i)[0].serializeString()] = allSymbols.size();
+		allSymbols.push_back(g(i)[0]);
+	}
+
+	for (int i = 0; i < gsize(); i++)
+		for (int k = 1; k < g(i).size(); k++) {
+			if (allIndexes.count(g(i)[k].serializeString()) || g(i)[k] == Epsilon())
+				continue;
+			allIndexes[g(i)[k].serializeString()] = allSymbols.size();
+			allSymbols.push_back(g(i)[k]);
+		}
+	allIndexes[End().serializeString()] = allSymbols.size();
+	allSymbols.push_back(End());
+}
+
+void grammar::resetFIRSTset()
+{
+	FIRSTset.clear();
 	for (word symbol : nonTerminals) {
-		FIRSTset[symbol.value] = new std::set<word>();
+		FIRSTset[symbol.serializeString()] = new std::set<word>();
 	}
 	bool repeat = true;
 	while (repeat) {
@@ -52,10 +121,11 @@ void grammar::setFIRSTset()
 	}
 }
 
-void grammar::setFOLLOWset()
+void grammar::resetFOLLOWset()
 {
+	FOLLOWset.clear();
 	for (word symbol : nonTerminals) {
-		FOLLOWset[symbol.value] = new std::set<word>();
+		FOLLOWset[symbol.serializeString()] = new std::set<word>();
 	}
 	FOLLOW(g(0)[0]).insert(End());
 	bool repeat = true;
@@ -74,7 +144,7 @@ void grammar::setFOLLOWset()
 				mergeNonEplisonIntoSet(FOLLOW(p[k]), toMergeIn);
 				if (FOLLOW(p[k]).size() != beforeSize)
 					repeat = true;
-			}			
+			}
 		}
 	}
 }
@@ -113,58 +183,60 @@ int grammar::gsize()const
 
 void grammar::mergeNonEplisonIntoSet(std::set<word>& dest, std::set<word>& from)
 {
-	bool hasEpsilon = from.count(Epsilon())&&!dest.count(Epsilon());
+	bool hasEpsilon = from.count(Epsilon()) && !dest.count(Epsilon());
 	dest.insert(from.begin(), from.end());
-	if (hasEpsilon )
+	if (hasEpsilon)
 		dest.erase(Epsilon());
 }
 
 void grammar::firstOF(product& p, int begin, int end, std::set<word>& output)
 {
 	output.clear();
-	if (begin >=p.size()||end<0||begin>end)return;
+	if (begin >= p.size() || end<0 || begin>end)return;
 	int k = begin;
 	bool repeat = true;
-	while (repeat&&k<=end) {
+	while (repeat && k <= end) {
 		if (!nonTerminals.count(p[k]))
 			output.insert(p[k]);
-		else 
+		else
 			mergeNonEplisonIntoSet(output, FIRST(p[k]));
-		
-		if (!nonTerminals.count(p[0]) && FIRST(p[k]).count(Epsilon()))
+
+		if (nonTerminals.count(p[k]) && FIRST(p[k]).count(Epsilon()))
 			repeat = true;
-		else 
+		else
 			repeat = false;
 		k++;
 	}
+	if(repeat&&k>end)
+		output.insert(Epsilon());
 }
 
 
 std::set<word>& grammar::FIRST(word n)
 {
-	return *(FIRSTset[n.value]);
+	return *(FIRSTset[n.serializeString()]);
 }
 
 std::set<word>& grammar::FOLLOW(word n)
 {
-	return *(FOLLOWset[n.value]);
+	return *(FOLLOWset[n.serializeString()]);
 }
 
 grammar::grammar(std::queue<word>& products)
 {
 	allProducts.clear();
 	allSymbols.clear();
-	allIndexes.clear();
-	while(!products.empty()) {
+
+	while (!products.empty()) {
 		product* p = new std::vector<word>;
 		p->clear();
 		p->push_back(products.front());
 		if ((*p)[0].type != wordType::identifier)return;//left must be identifier
-		firstIndex[(*p)[0].value] = allProducts.size();
+		firstIndex[(*p)[0].serializeString()] = allProducts.size();
 		nonTerminals.insert((*p)[0]);
 		products.pop();
 		products.pop();//=>
-		while (End()!=(products.front())) {
+		while (End() != (products.front())) {
 			if (isOr(products.front())) {
 				allProducts.push_back(p);
 				word left = (*p)[0];
@@ -181,23 +253,45 @@ grammar::grammar(std::queue<word>& products)
 		products.pop();//$
 	}
 
-	for (int i = 0; i < gsize(); i++) 
-		for (int k = 0; k < g(i).size(); k++) {
-			if(allIndexes.count(g(i)[k].serializeString())||g(i)[k]==Epsilon())
-				continue;
-			allIndexes[g(i)[k].serializeString()] = allSymbols.size();
-			allSymbols.push_back(g(i)[k]);
+	resetSymbolIndex();
+	resetFIRSTset();
+	resetFOLLOWset();
+}
+
+void grammar::eliminateLeftR()
+{
+	if (allProducts.size() == 0)return;
+	std::vector<product*>tempG(allProducts);
+	allProducts.clear();
+	std::set<product*> sameLeftProductsNotLR = {};
+	std::set<product*>sameLeftProductsLR = {};//left recursices
+
+	for (word left : nonTerminals) {
+
+		for (int i = firstIndex[left.serializeString()];
+			i<tempG.size()&& (*tempG[i])[0]==left;
+			i++) {
+			if ((*tempG[i])[0] \
+				== (*tempG[i])[1])
+				sameLeftProductsLR.insert(tempG[i]);
+			else
+				sameLeftProductsNotLR.insert(tempG[i]);
 		}
-	allIndexes[End().serializeString()] = allSymbols.size();
-	allSymbols.push_back(End());
-	
-	setFIRSTset();
-	setFOLLOWset();
+		mergeEliminatedInto(allProducts, sameLeftProductsLR, sameLeftProductsNotLR, left);
+		sameLeftProductsLR.clear();
+		sameLeftProductsNotLR.clear();
+	}
+	for (product* p : tempG)
+		delete p;
+	resetTerminals();
+	resetSymbolIndex();
+	resetFIRSTset();
+	resetFOLLOWset();
 }
 
 grammar::~grammar()
 {
-	delete &nonTerminals;
+	delete& nonTerminals;
 	for (std::vector<product*> ::iterator it = allProducts.begin(); it < allProducts.end(); it++) {
 		delete (*it);
 	}
