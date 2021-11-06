@@ -60,6 +60,9 @@
     <ClCompile Include="LL1\LL1.cpp">
       <Filter>核心文件\LL1</Filter>
     </ClCompile>
+    <ClCompile Include="treePrinter\treeBuilder.cpp">
+      <Filter>边缘文件\treePrinter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="LL1\LL1.h">
       <Filter>核心文件\LL1</Filter>
+    </ClInclude>
+    <ClInclude Include="treePrinter\treeBuilder.h">
+      <Filter>边缘文件\treePrinter\head</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

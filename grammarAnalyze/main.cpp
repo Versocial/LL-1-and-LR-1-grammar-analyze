@@ -17,17 +17,27 @@ int main()
        std::cout << "Can Not Open File \"" << path << "\" .\n";
         return 1;
     }
+    std::string path2 = "grammar/input.txt";
+    ifstream input2(path2);
+    if (!input2.is_open()) {
+        std::cout << "Can Not Open File \"" << path2 << "\" .\n";
+        return 1;
+    }
 
     wordAnalyzer grammarAnalyzer(&input, std::cout);
-    std::queue<word>grammarText;
+    std::queue<word>grammarText = {};
     grammarAnalyzer.wordsAnalyze(grammarText);
     grammar g(grammarText);
 
     LL1Analyzer ll1(g);
-    wordAnalyzer inputAnalyzer(&cin, std::cout);
-    std::queue<word>inputText;
+    wordAnalyzer inputAnalyzer(&input2, std::cout);
+    std::queue<word>inputText = {};
+    std::queue<product*>output = {};
     inputAnalyzer.wordsAnalyze(inputText);
-    ll1.analyze(inputText);
-
+    ll1.analyze(inputText,output);
+    while (!output.empty()) {
+        cout << grammar::printProduct(*output.front())<<endl;
+        output.pop();
+    }
     return 0;
 }

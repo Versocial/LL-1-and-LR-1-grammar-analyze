@@ -10,11 +10,12 @@
 
 #include <iostream>
 #include <list>
+#include "../wordsAnalyze/word.h"
 
 class BasicNode {
 public:
 	BasicNode();
-	BasicNode(std::string data);
+	BasicNode(word w,int canBeLeaf);
 
 	virtual ~BasicNode();
 
@@ -23,10 +24,14 @@ public:
 
 	std::string getData();
 	void setData(std::string data);
-
+	int isLeaf()const;
+	static const int mustLeaf = 1;
+	static const int canNotLeaf = -1;
+	static const int maybeLeaf = 0;
 protected:
 	void setParent(BasicNode *nd);
-
+	word w;
+	int canBeLeaf;
 	std::string _data;
 
 	std::list<BasicNode *> _children;

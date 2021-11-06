@@ -18,7 +18,7 @@ void LL1Analyzer::formTable()
 		for (word w : first) {
 			if (w != grammar::Epsilon()) {
 				if (M(p[0], w) != errorNum)
-					std::cout << "shit";
+					error();
 				predictAnalyzeTable[gram->index(p[0]) * Mrow + gram->index(w) - Mline] = i;
 				sum++;
 				std::cout << "\nM[" << p[0].value << "," << w.value << "]=" << i << std::endl;
@@ -26,7 +26,7 @@ void LL1Analyzer::formTable()
 			else
 				for (word w2 : gram->FOLLOW(p[0])) {
 					if (M(p[0], w2) != errorNum)
-						std::cout << "shit";
+						error();
 					predictAnalyzeTable[gram->index(p[0]) * Mrow + gram->index(w2) - Mline] = i;
 					sum++;
 					std::cout << "\nM[" << p[0].value << "," << w2.value << "]=" << i << std::endl;
@@ -34,6 +34,11 @@ void LL1Analyzer::formTable()
 		}
 	}
 	std::cout << sum;
+}
+
+void LL1Analyzer::error()
+{
+	std::cout << "error!!!!\n";
 }
 
 LL1Analyzer::LL1Analyzer(grammar& gramm)
@@ -51,7 +56,42 @@ LL1Analyzer::~LL1Analyzer()
 	delete[] predictAnalyzeTable;
 }
 
-void LL1Analyzer::analyze(std::queue<word>& output)
+void LL1Analyzer::analyze(std::queue<word>& input, std::queue<product*>& output)
 {
-	predictAnalyzeTable[1];
+	std::stack<word> symbols = {};
+	symbols.push(grammar::End());
+	symbols.push(gram->g(0)[0]);
+	input.push(grammar::End());
+	do {
+		word x = symbols.top();
+		word a = input.front();
+		if (a.type == wordType::integer || a.type == wordType::realNum)
+			a = wordOf("num", wordType::identifier);
+		if (gram->N().count(x)) {
+			if (M(x, a) == errorNum){
+				error();
+				return;
+			}
+			symbols.pop();
+			if (!grammar::isEpsilonProduct(gram->g(M(x, a))))
+				for (int i = gram->g(M(x,a)).size() - 1; i >= 1; i--) {
+					symbols.push(gram->g(M(x,a))[i]);
+				}
+			output.push(&gram->g(M(x, a)));
+		}
+		else {
+			if (x != a) {
+				error();
+				return;
+			}
+			else {
+				symbols.pop();
+				input.pop();
+			}
+		}
+	} while (!symbols.empty()&&!input.empty());
+	if (!symbols.empty() || !input.empty()) {
+		error();
+	}
+	return;
 }

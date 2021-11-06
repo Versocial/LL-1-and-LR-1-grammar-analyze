@@ -35,6 +35,8 @@ public:
 	word alpha(int index);
 	product& g(int i);
 	int gsize()const;
+	static bool isEpsilonProduct(const product& p);
+	static std::string printProduct(const product& p);
 	static void mergeNonEplisonIntoSet(std::set<word>& dest, std::set<word>& from);
 	void firstOF(product& p, int begin,int end,std::set<word>& output);
 	std::set<word>& FIRST(word n);

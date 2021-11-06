@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="treePrinter\BasicNode.cpp" />
     <ClCompile Include="treePrinter\main2.cpp" />
+    <ClCompile Include="treePrinter\treeBuilder.cpp" />
     <ClCompile Include="wordsAnalyze\main3.cpp" />
     <ClCompile Include="wordsAnalyze\test.c" />
     <ClCompile Include="wordsAnalyze\wordAnalyzer_baseTools.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="LL1\LL1.h" />
     <ClInclude Include="treePrinter\BasicNode.h" />
     <ClInclude Include="treePrinter\BTNode.h" />
+    <ClInclude Include="treePrinter\treeBuilder.h" />
     <ClInclude Include="wordsAnalyze\error.h" />
     <ClInclude Include="wordsAnalyze\node.h" />
     <ClInclude Include="wordsAnalyze\word.h" />

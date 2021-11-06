@@ -1,8 +1,2 @@
-﻿  grammar.cpp
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(28,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(78,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(114,55): warning C4018: “>”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(137,22): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(195,12): warning C4018: “>=”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(272,5): warning C4018: “<”: 有符号/无符号不匹配
+﻿  main.cpp
   grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe
