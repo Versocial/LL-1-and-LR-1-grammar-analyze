@@ -7,6 +7,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include "treePrinter/treeBuilder.h"
 using namespace::std;
 int main()
 {
@@ -35,9 +36,14 @@ int main()
     std::queue<product*>output = {};
     inputAnalyzer.wordsAnalyze(inputText);
     ll1.analyze(inputText,output);
+    treeBuilder tB;
+    tB.buildBy(output, g.N());
+    //tB.print(cout);
+    tB.fixBy(inputText);
     while (!output.empty()) {
         cout << grammar::printProduct(*output.front())<<endl;
         output.pop();
     }
+    tB.print(cout);
     return 0;
 }

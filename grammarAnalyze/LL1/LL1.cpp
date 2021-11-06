@@ -56,7 +56,7 @@ LL1Analyzer::~LL1Analyzer()
 	delete[] predictAnalyzeTable;
 }
 
-void LL1Analyzer::analyze(std::queue<word>& input, std::queue<product*>& output)
+void LL1Analyzer::analyze(std::queue<word> input, std::queue<product*>& output)
 {
 	std::stack<word> symbols = {};
 	symbols.push(grammar::End());
@@ -66,7 +66,7 @@ void LL1Analyzer::analyze(std::queue<word>& input, std::queue<product*>& output)
 		word x = symbols.top();
 		word a = input.front();
 		if (a.type == wordType::integer || a.type == wordType::realNum)
-			a = wordOf("num", wordType::identifier);
+			a = grammar::numFormatWord();
 		if (gram->N().count(x)) {
 			if (M(x, a) == errorNum){
 				error();

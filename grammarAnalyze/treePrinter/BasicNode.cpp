@@ -15,6 +15,7 @@ BasicNode::BasicNode() {
 BasicNode::BasicNode(word w, int canItBeLeaf)
 {
 	_parent = nullptr;
+	this->w = w;
 	_data = w.value;
 	canBeLeaf = canItBeLeaf;
 }
@@ -44,14 +45,25 @@ std::list<BasicNode*> BasicNode::getChildren() {
 std::string BasicNode::getData() {
 	return _data;
 }
+//
+//void BasicNode::setData(std::string data) {
+//	_data = data;
+//}
 
-void BasicNode::setData(std::string data) {
-	_data = data;
+void BasicNode::setWord(word w)
+{
+	this->w = w;
+	this->_data = w.value;
 }
 
 int BasicNode::isLeaf()const
 {
 	return canBeLeaf;
+}
+
+word BasicNode::Word() const
+{
+	return w;
 }
 
 void BasicNode::setParent(BasicNode *nd) {

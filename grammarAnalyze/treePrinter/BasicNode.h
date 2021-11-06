@@ -23,8 +23,10 @@ public:
 	std::list<BasicNode *> getChildren();
 
 	std::string getData();
-	void setData(std::string data);
+	//void setData(std::string data);
+	void setWord(word w);
 	int isLeaf()const;
+	word Word()const;
 	static const int mustLeaf = 1;
 	static const int canNotLeaf = -1;
 	static const int maybeLeaf = 0;

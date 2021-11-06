@@ -29,6 +29,7 @@ public:
 	static void mergeEliminatedInto(std::vector<product*>& dest, std::set<product*>&LR,std::set<product*>&notLR,word left);
 	static word Epsilon();
 	static word End();//$
+	static word numFormatWord();//num
 	std::set<word>& N();
 	int symbolNum();
 	int index(word w);

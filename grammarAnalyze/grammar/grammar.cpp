@@ -47,6 +47,11 @@ word grammar::End()
 	return wordOf("$", symbol);
 }
 
+word grammar::numFormatWord()
+{
+	return wordOf("num", wordType::identifier);
+}
+
 
 void grammar::resetTerminals()
 {
@@ -199,7 +204,7 @@ std::string grammar::printProduct(const product& p)
 	std::string ans = p[0].value + " =>";
 	for (unsigned int i = 1; i < p.size(); i++) {
 		if (p[i] == Epsilon())
-			ans = ans + " @epsilon";
+			ans = ans + " ε";
 		else
 			ans = ans+" "+p[i].value;
 	}

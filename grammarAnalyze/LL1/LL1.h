@@ -19,5 +19,5 @@ public:
 	int M(word n, word a);
 	LL1Analyzer( grammar&  gram);
 	~LL1Analyzer();
-	void analyze(std::queue<word>& input,std::queue<product*>& output);
+	void analyze(std::queue<word> input,std::queue<product*>& output);
 };
