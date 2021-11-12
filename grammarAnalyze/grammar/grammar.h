@@ -42,6 +42,7 @@ public:
 	void firstOF(product& p, int begin,int end,std::set<word>& output);
 	std::set<word>& FIRST(word n);
 	std::set<word>& FOLLOW(word n);
+	int startOf(word w)const;
 	grammar(std::queue<word>& products);
 	void eliminateLeftR();
 	~grammar();

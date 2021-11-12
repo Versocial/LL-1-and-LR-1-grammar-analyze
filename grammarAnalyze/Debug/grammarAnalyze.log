@@ -1,10 +1,1 @@
-﻿  LL1.cpp
-  grammar.cpp
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(28,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(83,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(119,55): warning C4018: “>”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(142,22): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(217,12): warning C4018: “>=”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(294,5): warning C4018: “<”: 有符号/无符号不匹配
-  正在生成代码...
-  grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe
+﻿  grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe

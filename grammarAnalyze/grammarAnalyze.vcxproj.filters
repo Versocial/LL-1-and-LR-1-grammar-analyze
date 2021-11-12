@@ -63,6 +63,12 @@
     <ClCompile Include="treePrinter\treeBuilder.cpp">
       <Filter>边缘文件\treePrinter</Filter>
     </ClCompile>
+    <ClCompile Include="LR1\DFA.cpp">
+      <Filter>核心文件\LR1</Filter>
+    </ClCompile>
+    <ClCompile Include="LR1\LAAnalyzer.cpp">
+      <Filter>核心文件\LR1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="treePrinter\BasicNode.h">
@@ -91,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="treePrinter\treeBuilder.h">
       <Filter>边缘文件\treePrinter\head</Filter>
+    </ClInclude>
+    <ClInclude Include="LR1\DFA.h">
+      <Filter>核心文件\LR1</Filter>
+    </ClInclude>
+    <ClInclude Include="LR1\LRAnalyzer.h">
+      <Filter>核心文件\LR1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

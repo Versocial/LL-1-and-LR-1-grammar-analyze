@@ -318,3 +318,8 @@ grammar::~grammar()
 		delete (*it);
 	}
 }
+
+int grammar::startOf(word w)
+{
+	return firstIndex[w.serializeString()];
+}

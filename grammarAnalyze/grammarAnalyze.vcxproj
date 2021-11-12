@@ -141,6 +141,8 @@
   <ItemGroup>
     <ClCompile Include="grammar\grammar.cpp" />
     <ClCompile Include="LL1\LL1.cpp" />
+    <ClCompile Include="LR1\DFA.cpp" />
+    <ClCompile Include="LR1\LAAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="treePrinter\BasicNode.cpp" />
     <ClCompile Include="treePrinter\main2.cpp" />
@@ -153,6 +155,8 @@
   <ItemGroup>
     <ClInclude Include="grammar\grammar.h" />
     <ClInclude Include="LL1\LL1.h" />
+    <ClInclude Include="LR1\DFA.h" />
+    <ClInclude Include="LR1\LRAnalyzer.h" />
     <ClInclude Include="treePrinter\BasicNode.h" />
     <ClInclude Include="treePrinter\BTNode.h" />
     <ClInclude Include="treePrinter\treeBuilder.h" />
