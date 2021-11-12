@@ -319,7 +319,36 @@ grammar::~grammar()
 	}
 }
 
-int grammar::startOf(word w)
+int grammar::startOf(word w)const
 {
 	return firstIndex[w.serializeString()];
+}
+
+void grammar::augment()
+{
+	allProducts.push_back(allProducts[allProducts.size() - 1]);
+	for (int i = allProducts.size() - 1; i > 0; i--)
+		allProducts[i] = allProducts[i - 1];
+	allProducts[0] = new std::vector<word>();
+	allProducts[0]->push_back(wordOf("S\'", identifier));
+	allProducts[0]->push_back((*allProducts[1])[0]);
+	resetTerminals();
+	resetSymbolIndex();
+	resetFIRSTset();
+	resetFOLLOWset();
+}
+
+bool grammar::isReduce(item it)const
+{
+	return (*allProducts[it.index]).size() == it.point + 1||isEpsilonProduct(*allProducts[it.index]);
+}
+
+bool  grammar::isShift(item it)const
+{
+	return (*allProducts[it.index]).size() > it.point + 1 && !nonTerminals.count((*allProducts[it.index])[it.point + 1]);
+}
+
+bool  grammar::isToShift(item it)const
+{
+	return (*allProducts[it.index]).size() > it.point + 1 && nonTerminals.count((*allProducts[it.index])[it.point + 1]);
 }

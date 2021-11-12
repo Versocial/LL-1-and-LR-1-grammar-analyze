@@ -5,6 +5,7 @@
 #include <queue>
 #include<unordered_map>
 #include <set>
+#include "item.h"
 
 typedef std::vector<word> product;
 
@@ -44,6 +45,11 @@ public:
 	std::set<word>& FOLLOW(word n);
 	int startOf(word w)const;
 	grammar(std::queue<word>& products);
+	void augment();
 	void eliminateLeftR();
 	~grammar();
+
+	bool isReduce(item it)const;
+	bool isShift(item it)const;
+	bool isToShift(item it)const;
 };

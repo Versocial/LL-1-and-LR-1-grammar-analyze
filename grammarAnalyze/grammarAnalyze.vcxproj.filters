@@ -104,6 +104,9 @@
     <ClInclude Include="LR1\LRAnalyzer.h">
       <Filter>核心文件\LR1</Filter>
     </ClInclude>
+    <ClInclude Include="grammar\item.h">
+      <Filter>核心文件\grammar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt">

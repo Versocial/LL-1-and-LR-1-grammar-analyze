@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="grammar\grammar.h" />
+    <ClInclude Include="grammar\item.h" />
     <ClInclude Include="LL1\LL1.h" />
     <ClInclude Include="LR1\DFA.h" />
     <ClInclude Include="LR1\LRAnalyzer.h" />
