@@ -7,9 +7,9 @@ private:
 	int tLine;
 	int aRow;
 	int gRow;
-	std::vector<int> action;
-	std::vector<int> goTo;
-	int Action(word n, word a);
+	std::vector<int> Action;
+	std::vector<int> GoTo;
+	int action(word n, word a);
 	int goTo(word n, word a);
 
 public:

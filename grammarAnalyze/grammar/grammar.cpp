@@ -280,6 +280,14 @@ grammar::grammar(std::queue<word>& products)
 	resetFOLLOWset();
 }
 
+std::string grammar::printProduct(int k)
+{
+	std::string ans = g(k)[0].value + " => ";
+	for (int i = 1; i < g(k).size(); i++)
+		ans += g(k)[i].value+" ";
+	return ans;
+}
+
 void grammar::eliminateLeftR()
 {
 	if (allProducts.size() == 0)return;
@@ -319,7 +327,7 @@ grammar::~grammar()
 	}
 }
 
-int grammar::startOf(word w)const
+int grammar::startOf(word w)
 {
 	return firstIndex[w.serializeString()];
 }

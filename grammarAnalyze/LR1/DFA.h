@@ -4,6 +4,7 @@
 #include<unordered_map>
 #include "../grammar/grammar.h"
 #include "../grammar/item.h"
+#include<iostream>
 
 class itemSet {
 private:

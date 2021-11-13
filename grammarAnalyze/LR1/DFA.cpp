@@ -1,7 +1,6 @@
 
 #include "DFA.h"
 
-
 product& itemSet::g(item it)
 {
 	return gram->g(it.index);
@@ -67,22 +66,26 @@ itemSet* itemSet::clousure()
 				;
 			else if (gram->isToShift(*i)) {
 				std::set<word> first;
-				gram->firstOF(g(*i), (*i).point + 1, g(*i).size()-1, first);
+				gram->firstOF(g(*i), (*i).point + 2, g(*i).size()-1, first);
 				if (first.empty())
 					first.insert(gram->alpha((*i).look));
-				for (int j = gram->startOf(g(*i)[(*i).point + 1]);gram->g(j)[0]== g(*i)[(*i).point + 1]; j++) {
+				for (int j = gram->startOf(g(*i)[(*i).point + 1]);j<gram->gsize()&&gram->g(j)[0]== g(*i)[(*i).point + 1]; j++) {
 					item it ;
 					it.index = j;
 					it.point = 0;
 					for (word w : first) {
 						it.look = gram->index(w);
+						if(!items.count(it))
+							std::cout << gram->printProduct(it.index) << " "<< gram->alpha(it.look).value <<" " << it.index << " " << it.point << " " << it.look << std::endl;
 						items.insert(it);
+						
 					}
 				}
 			}
 		}
 		
 	}
+	std::cout << " \n";
 	return this;
 }
 
@@ -148,6 +151,7 @@ DFA::DFA(grammar&g)
 	gram = &g;
 	g.augment();
 	sets.push_back(new itemSet(g));
+	sets[0]->addItem(0, 0, gram->index(grammar::End()));
 	sets[0] = sets[0]->clousure();
 	setGoTo(0);
 }
