@@ -3,7 +3,7 @@
 #include "DFA.h"
 class LRAnalyzer {
 private:
-	grammar& gram;
+	grammar* gram;
 	int tLine;
 	int aRow;
 	int gRow;
@@ -13,7 +13,7 @@ private:
 	int goTo(word n, word a);
 
 public:
-	LRAnalyzer(grammar&gram);
+	LRAnalyzer(grammar& gram);
 	void setTableByLR1(DFA& dfa);
 	void analyze(const std::queue<word>& input, std::queue<word>& output);
 };

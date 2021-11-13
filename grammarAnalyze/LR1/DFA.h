@@ -32,12 +32,15 @@ class DFA {
 private:
 	product& g(item it);
 		grammar* gram;
-		int startProductIndex;
+		//int startProductIndex;
 		std::vector<itemSet*> sets;
 		std::unordered_map<std::string ,int> setsIndex;
 		void setGoTo(int i);
 		//inline int newSet();
 public:
+	int index(itemSet& set);
+	itemSet& theSet(int i);
+	itemSet& startSet();
 		DFA(grammar& g);
 		~DFA();
 
