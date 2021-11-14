@@ -24,6 +24,7 @@ public:
 	void addItem(int index, int point,int look);
 	itemSet* clousure();
 	std::string serializeInfo();
+	std::string printInfo(std::unordered_map<std::string, int>&setsIndex);
 	//void fixAllNext(const std::unordered_map<std::string, int>& setsIndex, std::vector<itemSet*>& sets);
 
 };
@@ -39,10 +40,13 @@ private:
 		//inline int newSet();
 public:
 	int index(itemSet& set);
+	int size();
 	itemSet& theSet(int i);
 	itemSet& startSet();
 		DFA(grammar& g);
 		~DFA();
+	std::string printSet(int i);
+	void print(std::ostream& out);
 
 
 

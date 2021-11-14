@@ -16,7 +16,7 @@ private:
 
 	std::set<word>& nonTerminals = *new std::set<word>;
 	std::unordered_map<std::string, int> firstIndex;
-	std::vector<word> allSymbols;// without epsilon or dollor, nonTerminal first
+	std::vector<word> allSymbols;// without epsilon but contains dollor$(end), nonTerminal first
 	std::unordered_map<std::string, int> allIndexes;
 	std::unordered_map<std::string, std::set<word>*>FIRSTset;
 	std::unordered_map<std::string, std::set<word>*>FOLLOWset;

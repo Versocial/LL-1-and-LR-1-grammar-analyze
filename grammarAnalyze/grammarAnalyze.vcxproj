@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt" />
+    <Text Include="grammar\input.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="treePrinter\BTNode.cpp" />

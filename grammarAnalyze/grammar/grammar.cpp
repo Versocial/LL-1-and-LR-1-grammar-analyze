@@ -178,7 +178,7 @@ word grammar::alpha(int index)
 
 product& grammar::g(int i)
 {
-	return *allProducts[i];
+	return *(allProducts[i]);
 }
 
 int grammar::gsize()const

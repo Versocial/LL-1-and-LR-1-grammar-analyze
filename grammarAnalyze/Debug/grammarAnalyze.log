@@ -1,6 +1,5 @@
 ﻿V:\intergalaxyships\VisualStudio\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1097,5): warning MSB8027: 名为 main3.cpp 的两个或更多文件将生成到同一位置的输出。这会导致错误的生成结果。   调用的文件是 main3.cpp, wordsAnalyze\main3.cpp。
   LAAnalyzer.cpp
-  LRAnalyzer.cpp
-  正在生成代码...
-Debug\main3.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\LR1\LAAnalyzer.cpp(43,21): warning C4018: “<”: 有符号/无符号不匹配
+A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\LR1\LAAnalyzer.cpp(132,23): warning C4018: “<”: 有符号/无符号不匹配
   grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe

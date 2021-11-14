@@ -9,6 +9,7 @@
 #include<string>
 #include "treePrinter/treeBuilder.h"
 #include "LR1/DFA.h"
+#include "LR1/LRAnalyzer.h"
 using namespace::std;
 int main()
 {
@@ -31,21 +32,24 @@ int main()
     grammarAnalyzer.wordsAnalyze(grammarText);
     grammar g(grammarText);
 
-    DFA dfa(g);
-
+    LRAnalyzer LR1(g);
+    LR1.setTableByLR1();
+    LR1.print(cout);
     //LL1Analyzer ll1(g);
-    //wordAnalyzer inputAnalyzer(&input2, std::cout);
-    //std::queue<word>inputText = {};
-    //std::queue<product*>output = {};
-    //inputAnalyzer.wordsAnalyze(inputText);
-    //ll1.analyze(inputText,output);
-    //treeBuilder tB;
-    //tB.buildBy(output, g.N());
-    //tB.fixBy(inputText);
-    //while (!output.empty()) {
-    //    cout << grammar::printProduct(*output.front())<<endl;
-    //    output.pop();
-    //}
-    //tB.print(cout);
+    wordAnalyzer inputAnalyzer(&input2, std::cout);
+    std::queue<word>inputText = {};
+    std::queue<product*>output = {};
+    inputAnalyzer.wordsAnalyze(inputText);
+
+
+    LR1.analyze(inputText,output);
+    treeBuilder tB;
+    tB.buildBy(output, g.N());
+    tB.fixBy(inputText);
+    while (!output.empty()) {
+        cout << grammar::printProduct(*output.front())<<endl;
+        output.pop();
+    }
+    tB.print(cout);
     return 0;
 }

@@ -118,6 +118,9 @@
     <Text Include="grammar\grammar.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="grammar\input.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="treePrinter\BTNode.cpp">

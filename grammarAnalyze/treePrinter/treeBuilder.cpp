@@ -18,11 +18,32 @@ BasicNode* treeBuilder::leftestNotLeaf(BasicNode* node)//node must can be not le
 		return nullptr;
 }
 
-BasicNode* treeBuilder::leftestNotLeaf()
+BasicNode* treeBuilder::firstNotLeaf(bool leftest)
 {
 	/*if (root==nullptr||root->getChildren().size()==0)
 		return root;	*/
-	return leftestNotLeaf(root);
+	if (leftest)
+		return leftestNotLeaf(root);
+	else
+		return rightestNotLeaf(root);
+}
+
+BasicNode* treeBuilder::rightestNotLeaf(BasicNode* node)
+{
+	if (node != nullptr) {
+		if (node->getChildren().size() == 0)
+			return node;
+		std::list<BasicNode*> nlist = node->getChildren();
+		for (auto now = nlist.rbegin(); now != nlist.rend(); now++) {
+			if ((*now)->isLeaf() == BasicNode::mustLeaf)
+				continue;
+			BasicNode* ans = rightestNotLeaf(*now);
+			if (ans != nullptr)
+				return ans;
+		}
+	}
+	else
+		return nullptr;
 }
 
 treeBuilder::treeBuilder()
@@ -35,15 +56,22 @@ treeBuilder::~treeBuilder()
 	delete root;
 }
 
-void treeBuilder::buildBy(std::queue<product*> input,std::set<word>N)
+void treeBuilder::buildBy(std::queue<product*> input,std::set<word>N, bool leftest)
 {
+
+	if (leftest == false) {
+		std::stack<
+	}
+
 	if (root != nullptr)
 		delete root;
 	root =new BasicNode( (*input.front())[0],BasicNode::canNotLeaf);
+
+
 	while (!input.empty()) {
 		product p = *input.front();
 		input.pop();
-		BasicNode* now = leftestNotLeaf();
+		BasicNode* now = firstNotLeaf(leftest);
 		if (now==nullptr||p[0] != now->Word())
 			std::cout << "shit";
 		for (int i = 1; i < p.size(); i++) {
@@ -51,7 +79,7 @@ void treeBuilder::buildBy(std::queue<product*> input,std::set<word>N)
 			now->addChildren(new BasicNode(p[i], isLeaf));
 		}
 	}
-	if (leftestNotLeaf() != nullptr)
+	if (firstNotLeaf(leftest) != nullptr)
 		std::cout << "shit2";
 	return;
 }
