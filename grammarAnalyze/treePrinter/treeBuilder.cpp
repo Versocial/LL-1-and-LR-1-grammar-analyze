@@ -56,21 +56,29 @@ treeBuilder::~treeBuilder()
 	delete root;
 }
 
-void treeBuilder::buildBy(std::queue<product*> input,std::set<word>N, bool leftest)
+void treeBuilder::buildBy(std::deque<product*> input,std::set<word>N, bool leftest)
 {
 
-	if (leftest == false) {
-		std::stack<
-	}
 
 	if (root != nullptr)
 		delete root;
 	root =new BasicNode( (*input.front())[0],BasicNode::canNotLeaf);
-
+	
+	void (std::deque<product*>:: * pop)(); 
+	product*& (std::deque<product*>:: * top)();
+	if (leftest) {
+		pop = &std::deque<product*>::pop_front;
+		top = &std::deque<product*>::front;
+	}
+	else {
+		pop = &std::deque<product*>::pop_back;
+		top = &std::deque<product*>::back;
+	}
+	;
 
 	while (!input.empty()) {
-		product p = *input.front();
-		input.pop();
+		product p = *((& input)->*top)();
+		((&input)->*pop)();
 		BasicNode* now = firstNotLeaf(leftest);
 		if (now==nullptr||p[0] != now->Word())
 			std::cout << "shit";
@@ -109,7 +117,7 @@ void treeBuilder::fixSomeBy(BasicNode* now, std::queue<word>& input)
 		if (now->Word() != grammar::Epsilon())
 			input.pop();
 		else
-			now->setWord(wordOf(" ε ", wordType::identifier));
+			now->setWord(wordOf("[epsilon]", wordType::identifier));
 	}
 	else {
 		std::list<BasicNode*> nlist = now->getChildren();

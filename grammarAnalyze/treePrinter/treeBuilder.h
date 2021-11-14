@@ -16,7 +16,7 @@ public:
 	treeBuilder();
 	~treeBuilder();
 	void print(std::ostream& output);
-	void buildBy(std::queue<product*> input, std::set<word>N,bool leftest);
+	void buildBy(std::deque<product*> input, std::set<word>N,bool leftest);
 	void fixBy(std::queue<word> input);
 
 };

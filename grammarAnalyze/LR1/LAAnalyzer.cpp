@@ -95,7 +95,7 @@ void LRAnalyzer::setTableByLR1()
 
 }
 
-void LRAnalyzer::analyze(std::queue<word> input, std::queue<product*>& output)
+void LRAnalyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 {
 	std::stack<int> stateStack;
 	std::stack<word> symbolStack;
@@ -126,7 +126,7 @@ void LRAnalyzer::analyze(std::queue<word> input, std::queue<product*>& output)
 		case 'R':
 		{
 			product& p = gram->g(action(stateStack.top(), w).num);
-			output.push(&p);
+			output.push_back(&p);
 			std::cout << "reduce " << grammar::printProduct(p) << std::endl;
 			if (!grammar::isEpsilonProduct(p)) {
 				for (int i = 1; i < p.size(); i++) {

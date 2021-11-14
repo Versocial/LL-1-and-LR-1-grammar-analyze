@@ -56,7 +56,7 @@ LL1Analyzer::~LL1Analyzer()
 	delete[] predictAnalyzeTable;
 }
 
-void LL1Analyzer::analyze(std::queue<word> input, std::queue<product*>& output)
+void LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 {
 	std::stack<word> symbols = {};
 	symbols.push(grammar::End());
@@ -77,7 +77,7 @@ void LL1Analyzer::analyze(std::queue<word> input, std::queue<product*>& output)
 				for (int i = gram->g(M(x,a)).size() - 1; i >= 1; i--) {
 					symbols.push(gram->g(M(x,a))[i]);
 				}
-			output.push(&gram->g(M(x, a)));
+			output.push_back(&gram->g(M(x, a)));
 		}
 		else {
 			if (x != a) {

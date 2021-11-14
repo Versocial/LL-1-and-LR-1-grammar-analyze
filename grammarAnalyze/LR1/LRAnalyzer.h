@@ -29,5 +29,5 @@ public:
 	LRAnalyzer(grammar& gram);
 	~LRAnalyzer();
 	void setTableByLR1();
-	void analyze(std::queue<word> input, std::queue<product*>& output);
+	void analyze(std::queue<word> input, std::deque<product*>& output);
 };
