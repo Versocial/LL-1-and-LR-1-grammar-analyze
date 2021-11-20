@@ -112,10 +112,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="grammar\grammar.txt">
+    <Text Include="grammar\grammar1.txt">
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="grammar\input.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="grammar\grammar.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

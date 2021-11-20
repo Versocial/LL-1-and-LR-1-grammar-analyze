@@ -288,6 +288,13 @@ std::string grammar::printProduct(int k)
 	return ans;
 }
 
+void grammar::print(std::ostream& out)
+{
+	for (int i = 0; i < allProducts.size(); i++) {
+		out<<i<<" : "<<printProduct(i) << std::endl;
+	}
+}
+
 void grammar::eliminateLeftR()
 {
 	if (allProducts.size() == 0)return;
@@ -296,8 +303,12 @@ void grammar::eliminateLeftR()
 	std::set<product*> sameLeftProductsNotLR = {};
 	std::set<product*>sameLeftProductsLR = {};//left recursices
 
-	for (word left : nonTerminals) {
-
+	word left = (*tempG[0])[0];
+	nonTerminals.erase(left);
+	std::set<word>::iterator it = nonTerminals.begin();
+	do {
+		if ((*tempG[0])[0] != left)
+			left = *it;
 		for (int i = firstIndex[left.serializeString()];
 			i<tempG.size()&& (*tempG[i])[0]==left;
 			i++) {
@@ -310,7 +321,11 @@ void grammar::eliminateLeftR()
 		mergeEliminatedInto(allProducts, sameLeftProductsLR, sameLeftProductsNotLR, left);
 		sameLeftProductsLR.clear();
 		sameLeftProductsNotLR.clear();
-	}
+		if (left == (*tempG[0])[0])
+			left=*it;
+		else
+			it++;
+	} while (it != nonTerminals.end());
 	for (product* p : tempG)
 		delete p;
 	resetTerminals();

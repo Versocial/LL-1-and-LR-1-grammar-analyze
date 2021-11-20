@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="grammar\grammar.txt" />
+    <Text Include="grammar\grammar1.txt" />
     <Text Include="grammar\input.txt" />
   </ItemGroup>
   <ItemGroup>

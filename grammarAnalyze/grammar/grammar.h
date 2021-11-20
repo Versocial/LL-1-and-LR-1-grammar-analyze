@@ -45,6 +45,7 @@ public:
 	int startOf(word w);
 	grammar(std::queue<word>& products);
 	std::string printProduct(int i);
+	void print(std::ostream& out);
 	void augment();
 	void eliminateLeftR();
 	~grammar();

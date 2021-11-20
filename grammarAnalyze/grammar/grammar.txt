@@ -1,3 +1,7 @@
-E=>E+T | E-T | T$ 
-T=>T*F | T/F | F$
-F=>(E) | num$
+Statement=>		IFstatement Statement|Exps $
+IFStatement=>    if ( Bool ) Line  else Exps  
+				|if ( Bool ) Line  else {Statement}
+				|if ( Bool ) Line  else IFStatement $
+Exps=>exp;|exp;Exps|{Exps} $
+Line =>Exps|{Statement} $
+Bool=>true|false $
