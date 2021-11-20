@@ -38,7 +38,7 @@ void LL1Analyzer::formTable()
 
 void LL1Analyzer::error()
 {
-	std::cout << "error!!!!\n";
+	std::cout << "[Error]: in LL1 !\n";
 }
 
 LL1Analyzer::LL1Analyzer(grammar& gramm)

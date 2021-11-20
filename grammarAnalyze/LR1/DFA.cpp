@@ -9,13 +9,13 @@ product& itemSet::g(item it)
 
 void itemSet::setNextItemSet(word k, itemSet* v)
 {
-	nextItemSet[k.serializeString()] = v;
+	go[k.serializeString()] = v;
 }
 
 itemSet* itemSet::getNextItemSet(word k)
 {
-	if (nextItemSet.count(k.serializeString()))
-		return nextItemSet[k.serializeString()];
+	if (go.count(k.serializeString()))
+		return go[k.serializeString()];
 	else return NULL;
 }
 
@@ -34,7 +34,7 @@ itemSet::itemSet(grammar& g)
 {
 	gram = &g;
 	items = {};
-	nextItemSet = {};
+	go = {};
 }
 
 itemSet::~itemSet()
@@ -75,8 +75,6 @@ itemSet* itemSet::clousure()
 					it.point = 0;
 					for (word w : first) {
 						it.look = gram->index(w);
-						//if(!items.count(it))
-						//	std::cout << gram->printProduct(it.index) << " "<< gram->alpha(it.look).value <<" " << it.index << " " << it.point << " " << it.look << std::endl;
 						items.insert(it);
 						
 					}
@@ -106,14 +104,14 @@ std::string itemSet::printInfo(std::unordered_map<std::string, int>&setsIndex)
 	for (item it : items) {
 		ans += gram->printProduct(it.index) + " " + gram->alpha(it.look).value + "\t " +std::to_string( it.index) + " " +std::to_string(it.point) + " " +std::to_string(it.look)+"\n";
 	}
-	for (auto i = nextItemSet.begin(); i != nextItemSet.end(); i++) {
+	for (auto i = go.begin(); i != go.end(); i++) {
 		ans += "goto " + (*i).first + " = " + std::to_string(setsIndex[(*i).second->serializeInfo()])+"\n";
 	}
 	return ans;
 }
 
 
-void DFA::setGoTo(int k)
+void DFA::setGo(int k)
 {
 	std::set<item> theSet = (*sets[k]).Items();
 	std::set<word>nexts = {};
@@ -141,7 +139,7 @@ void DFA::setGoTo(int k)
 			sets.push_back((*sets[k]).getNextItemSet(w));
 			setsIndex[(*(*sets[k]).getNextItemSet(w)).serializeInfo()]=sets.size()-1;
 			//std::cout << "^^^ the clousure " << index(*(*sets[k]).getNextItemSet(w)) << std::endl;
-			setGoTo(sets.size() - 1);
+			setGo(sets.size() - 1);
 		}
 	}
 }
@@ -170,7 +168,7 @@ DFA::DFA(grammar&g)
 	sets.push_back(new itemSet(g));
 	sets[0]->addItem(0, 0, gram->index(grammar::End()));
 	sets[0] = sets[0]->clousure();
-	setGoTo(0);
+	setGo(0);
 	print(std::cout);
 	
 }

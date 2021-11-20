@@ -204,7 +204,7 @@ std::string grammar::printProduct(const product& p)
 	std::string ans = p[0].value + " =>";
 	for (unsigned int i = 1; i < p.size(); i++) {
 		if (p[i] == Epsilon())
-			ans = ans + " ε";
+			ans = ans + " [epsilon]";
 		else
 			ans = ans+" "+p[i].value;
 	}

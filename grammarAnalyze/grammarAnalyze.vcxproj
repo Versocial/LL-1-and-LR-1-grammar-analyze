@@ -142,7 +142,6 @@
     <ClCompile Include="grammar\grammar.cpp" />
     <ClCompile Include="LL1\LL1.cpp" />
     <ClCompile Include="LR1\DFA.cpp" />
-    <ClCompile Include="LR1\LAAnalyzer.cpp" />
     <ClCompile Include="LR1\LRAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main3.cpp" />

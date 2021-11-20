@@ -11,8 +11,7 @@ private:
 	std::set<item> items;
 	grammar* gram;
 	inline product& g(item it);
-	//std::vector<item*>rowItems;
-	std::unordered_map<std::string, itemSet*>nextItemSet;
+	std::unordered_map<std::string, itemSet*>go;
 
 public:
 	void setNextItemSet(word , itemSet*);
@@ -25,19 +24,16 @@ public:
 	itemSet* clousure();
 	std::string serializeInfo();
 	std::string printInfo(std::unordered_map<std::string, int>&setsIndex);
-	//void fixAllNext(const std::unordered_map<std::string, int>& setsIndex, std::vector<itemSet*>& sets);
-
+	
 };
 
 class DFA {
 private:
 	product& g(item it);
 		grammar* gram;
-		//int startProductIndex;
 		std::vector<itemSet*> sets;
 		std::unordered_map<std::string ,int> setsIndex;
-		void setGoTo(int i);
-		//inline int newSet();
+		void setGo(int i);
 public:
 	int index(itemSet& set);
 	int size();
@@ -47,7 +43,5 @@ public:
 		~DFA();
 	std::string printSet(int i);
 	void print(std::ostream& out);
-
-
 
 };

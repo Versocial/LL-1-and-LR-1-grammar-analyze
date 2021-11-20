@@ -20,8 +20,6 @@ BasicNode* treeBuilder::leftestNotLeaf(BasicNode* node)//node must can be not le
 
 BasicNode* treeBuilder::firstNotLeaf(bool leftest)
 {
-	/*if (root==nullptr||root->getChildren().size()==0)
-		return root;	*/
 	if (leftest)
 		return leftestNotLeaf(root);
 	else
@@ -81,14 +79,14 @@ void treeBuilder::buildBy(std::deque<product*> input,std::set<word>N, bool lefte
 		((&input)->*pop)();
 		BasicNode* now = firstNotLeaf(leftest);
 		if (now==nullptr||p[0] != now->Word())
-			std::cout << "shit";
+			std::cout << "[Error]:in tree building:the nonTerminal should be "<<p[0].value << " instead of " << now->Word().value<<std::endl;
 		for (int i = 1; i < p.size(); i++) {
 			int isLeaf = N.count(p[i]) ? BasicNode::canNotLeaf : BasicNode::mustLeaf;
 			now->addChildren(new BasicNode(p[i], isLeaf));
 		}
 	}
 	if (firstNotLeaf(leftest) != nullptr)
-		std::cout << "shit2";
+		std::cout << "[Error]:in tree building:the tree should be finished but not" << std::endl;
 	return;
 }
 

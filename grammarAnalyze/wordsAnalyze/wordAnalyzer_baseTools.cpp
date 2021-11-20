@@ -19,9 +19,6 @@ wordAnalyzer::wordAnalyzer(std::istream*input, std::ostream& out) {
     charNumber = 0;
     lineStartNumber = 0;
     initSymbolCheckTree();
-   /*std:: ifstream* inputs = new std:: ifstream(path);
-    openFile = inputs->is_open();
-    if (openFile)input = inputs;*/
     this->input = input;
     output = &out;
 }

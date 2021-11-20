@@ -18,8 +18,7 @@ struct Item {
 	}
 	std::string serializeString()const {
 		std::string ans = " "+std::to_string(index) + "." + std::to_string(point) + ":" + std::to_string(look) + " ";
-		/*	for (std::set<int>::iterator i = look.begin(); i != look.end(); i++)
-				ans += std::to_string(*i) + "|";*/
+		
 		return ans;
 	}
 };

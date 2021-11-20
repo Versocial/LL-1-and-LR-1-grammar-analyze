@@ -21,7 +21,6 @@ private:
 	std::unordered_map<std::string, std::set<word>*>FIRSTset;
 	std::unordered_map<std::string, std::set<word>*>FOLLOWset;
 	static bool isOr(word w);
-	//static word leftOf(product* p);
 	void resetTerminals();//nonTerminals- firstIndex
 	void resetSymbolIndex();// allSymbols-allIndexes
 	void resetFIRSTset();//FIRSTset
