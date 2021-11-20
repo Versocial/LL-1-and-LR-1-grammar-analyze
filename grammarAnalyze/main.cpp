@@ -14,8 +14,8 @@ int mainLL1();
 int mainLR1();
 
 int main() {
-    mainLL1();
-    //mainLR1();
+   // mainLL1();
+    mainLR1();
 }
 
 int mainLL1()

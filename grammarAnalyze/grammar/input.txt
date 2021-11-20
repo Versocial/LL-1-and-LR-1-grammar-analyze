@@ -1,3 +1,1 @@
-int I,I,I;
-real R,R;
-int I;
+1+2*3

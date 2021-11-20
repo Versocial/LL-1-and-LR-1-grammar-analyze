@@ -1,14 +1,3 @@
 ﻿V:\intergalaxyships\VisualStudio\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1097,5): warning MSB8027: 名为 main3.cpp 的两个或更多文件将生成到同一位置的输出。这会导致错误的生成结果。   调用的文件是 main3.cpp, wordsAnalyze\main3.cpp。
-  grammar.cpp
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(28,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(83,21): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(119,55): warning C4018: “>”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(142,22): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(217,12): warning C4018: “>=”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(286,20): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(293,20): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(313,5): warning C4018: “<”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(371,41): warning C4018: “>”: 有符号/无符号不匹配
-A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\grammarAnalyze\grammar\grammar.cpp(376,41): warning C4018: “>”: 有符号/无符号不匹配
-Debug\main3.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+  main.cpp
   grammarAnalyze.vcxproj -> A:\Programer\音乐\Albert_C\VS-Cpp\grammarAnalyze\Debug\grammarAnalyze.exe
