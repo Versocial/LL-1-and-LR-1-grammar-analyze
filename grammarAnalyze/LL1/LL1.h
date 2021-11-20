@@ -9,6 +9,7 @@ class LL1Analyzer {
 private:
 	int *predictAnalyzeTable;
 	const int errorNum = -1;
+	int analyzeWrong = false;
 	grammar* gram=NULL;
 	int Mline;
 	int Mrow;
@@ -19,5 +20,5 @@ public:
 	int M(word n, word a);
 	LL1Analyzer( grammar&  gram);
 	~LL1Analyzer();
-	void analyze(std::queue<word> input,std::deque<product*>& output);
+	bool analyze(std::queue<word> input,std::deque<product*>& output);
 };

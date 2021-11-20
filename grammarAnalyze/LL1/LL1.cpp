@@ -7,7 +7,7 @@ int LL1Analyzer::M(word n, word a)
 
 void LL1Analyzer::formTable()
 {
-	int sum = 0;
+	std::cout << "The predict analyze table:\n";
 	for (int j = 0; j < Mrow * Mline; j++) {
 		predictAnalyzeTable[j] = errorNum;
 	}
@@ -20,24 +20,23 @@ void LL1Analyzer::formTable()
 				if (M(p[0], w) != errorNum)
 					error();
 				predictAnalyzeTable[gram->index(p[0]) * Mrow + gram->index(w) - Mline] = i;
-				sum++;
-				std::cout << "\nM[" << p[0].value << "," << w.value << "]=" << i << std::endl;
+				std::cout << "M[" << p[0].value << "," << w.value << "]=" << i << "\t";
 			}
 			else
 				for (word w2 : gram->FOLLOW(p[0])) {
 					if (M(p[0], w2) != errorNum)
 						error();
 					predictAnalyzeTable[gram->index(p[0]) * Mrow + gram->index(w2) - Mline] = i;
-					sum++;
-					std::cout << "\nM[" << p[0].value << "," << w2.value << "]=" << i << std::endl;
+					std::cout << "M[" << p[0].value << "," << w2.value << "]=" << i << "\t";
 				}
 		}
+		std::cout << "\n";
 	}
-	std::cout << sum;
 }
 
 void LL1Analyzer::error()
 {
+	analyzeWrong = true;
 	std::cout << "[Error]: in LL1 !\n";
 }
 
@@ -56,8 +55,9 @@ LL1Analyzer::~LL1Analyzer()
 	delete[] predictAnalyzeTable;
 }
 
-void LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
+bool LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 {
+	analyzeWrong = false;
 	std::stack<word> symbols = {};
 	symbols.push(grammar::End());
 	symbols.push(gram->g(0)[0]);
@@ -70,7 +70,7 @@ void LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 		if (gram->N().count(x)) {
 			if (M(x, a) == errorNum){
 				error();
-				return;
+				return analyzeWrong;
 			}
 			symbols.pop();
 			if (!grammar::isEpsilonProduct(gram->g(M(x, a))))
@@ -82,7 +82,7 @@ void LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 		else {
 			if (x != a) {
 				error();
-				return;
+				return analyzeWrong;
 			}
 			else {
 				symbols.pop();
@@ -93,5 +93,5 @@ void LL1Analyzer::analyze(std::queue<word> input, std::deque<product*>& output)
 	if (!symbols.empty() || !input.empty()) {
 		error();
 	}
-	return;
+	return analyzeWrong;
 }

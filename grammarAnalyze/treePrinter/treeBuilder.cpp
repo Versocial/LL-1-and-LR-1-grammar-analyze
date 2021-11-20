@@ -59,18 +59,19 @@ void treeBuilder::buildBy(std::deque<product*> input,std::set<word>N, bool lefte
 
 
 	if (root != nullptr)
-		delete root;
-	root =new BasicNode( (*input.front())[0],BasicNode::canNotLeaf);
+		delete root;	
 	
 	void (std::deque<product*>:: * pop)(); 
 	product*& (std::deque<product*>:: * top)();
 	if (leftest) {
 		pop = &std::deque<product*>::pop_front;
 		top = &std::deque<product*>::front;
+		root = new BasicNode((*input.front())[0], BasicNode::canNotLeaf);
 	}
 	else {
 		pop = &std::deque<product*>::pop_back;
 		top = &std::deque<product*>::back;
+		root = new BasicNode((*input.back())[0], BasicNode::canNotLeaf);
 	}
 	;
 
@@ -125,3 +126,4 @@ void treeBuilder::fixSomeBy(BasicNode* now, std::queue<word>& input)
 	}
 	return;
 }
+

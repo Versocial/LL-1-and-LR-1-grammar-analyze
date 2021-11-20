@@ -20,6 +20,7 @@ private:
 	int tLine;
 	int aRow;
 	int gRow;
+	bool analyzeWrong = false;
 
 	info& action(int n, word a);
 	info& goTo(int n, word a);
@@ -29,5 +30,5 @@ public:
 	LRAnalyzer(grammar& gram);
 	~LRAnalyzer();
 	void setTableByLR1();
-	void analyze(std::queue<word> input, std::deque<product*>& output);
+	bool analyze(std::queue<word> input, std::deque<product*>& output);
 };

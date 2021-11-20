@@ -83,7 +83,6 @@ itemSet* itemSet::clousure()
 		}
 		
 	}
-	std::cout << " \n";
 	return this;
 }
 
@@ -102,10 +101,10 @@ std::string itemSet::printInfo(std::unordered_map<std::string, int>&setsIndex)
 {
 	std::string ans;
 	for (item it : items) {
-		ans += gram->printProduct(it.index) + " " + gram->alpha(it.look).value + "\t " +std::to_string( it.index) + " " +std::to_string(it.point) + " " +std::to_string(it.look)+"\n";
+		ans += gram->printProduct(it.index) + " \t" + gram->alpha(it.look).value + "\t <" +std::to_string( it.index) + "," +std::to_string(it.point) + "," +std::to_string(it.look)+">\n";
 	}
 	for (auto i = go.begin(); i != go.end(); i++) {
-		ans += "goto " + (*i).first + " = " + std::to_string(setsIndex[(*i).second->serializeInfo()])+"\n";
+		ans += "go[" + (*i).first + "] = " + std::to_string(setsIndex[(*i).second->serializeInfo()])+"\n";
 	}
 	return ans;
 }
@@ -169,7 +168,6 @@ DFA::DFA(grammar&g)
 	sets[0]->addItem(0, 0, gram->index(grammar::End()));
 	sets[0] = sets[0]->clousure();
 	setGo(0);
-	print(std::cout);
 	
 }
 
@@ -188,7 +186,7 @@ std::string DFA::printSet(int i)
 void DFA::print(std::ostream& out)
 {
 	for (int i = 0; i < sets.size(); i++) {
-		out << "\nitemSet " << i << std::endl;
+		out << "\nitemSet I" << i << std::endl;
 		out << sets[i]->printInfo(setsIndex);
 		
 	}
